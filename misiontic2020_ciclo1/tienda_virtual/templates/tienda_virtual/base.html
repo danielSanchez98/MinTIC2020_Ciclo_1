@@ -1,0 +1,45 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">   
+        <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        
+		<title>MisionTIC - Tienda Virtual</title>
+		<meta name="description" content="Este es un ejemplo de Tienda Virtual para el Ciclo 1 del programa MisiónTIC 2020">
+		<meta name="author" content="Carlos A. Sierra [casierrav@unal.edu.co]">
+        <meta name="keywords" content="tienda,virtual,misiontic">
+
+        <meta http-equiv="Pragma" content="no-cache">
+
+        <link rel="stylesheet" type="text/css" href="{% static 'example_form/css/style.css' %}">
+        
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+    </head>
+    <body>
+        <div align="center">
+            <img src="{% static 'example_form/images/mision_tic_2022.png' %}">
+        </div>
+        <div align="center" width="100%">
+            <table>
+                <tr>
+                    <td><b><a href="/">Inicio</a>&nbsp;&nbsp;|&nbsp;&nbsp;</b></td>
+                    <td><b><a href="/productos/">Productos</a>&nbsp;&nbsp;|&nbsp;&nbsp;</b></td>
+                    <td><b><a href="/carrito_compras/">Carrito de Compras</a>&nbsp;&nbsp;|&nbsp;&nbsp;</b></td>
+                    <td><b><a href="/historial_compras/">Historial de Compras</a></b></td>
+                </tr>
+            </table>
+        </div>
+
+        <br /><br />
+        <div class="content container">
+            <div class="row">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+    </body>
+</html>

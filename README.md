@@ -1,1 +1,1 @@
-# MinTIC2020_Cicilo1
+# MinTIC2020 Ciclo 1

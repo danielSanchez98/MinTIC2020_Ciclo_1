@@ -51,34 +51,51 @@ Django es un Framework que ayuda a mantener de manera simple y separada las vist
 Para crear un proyecto en Django, teniendo el entorno virtual activo y en la raíz de la carpeta del ejercicio, ejecute el siguiente comando:
 django-admin startproject misiontic2020_ciclo1
 
-Esto creará una carpeta llamada "misiontic_2020_ciclo1" puesto que es el nombre que se le dio al proyecto en Django. Dentro de esta carpeta se han auto-generado los archivos básicos de configuración del proyecto.
-Si usted quiere darle otro nombre a su proyecto, tendrá que cambiar la cadena de caracteres final de la instrucción utilizada.
+Esto creará una carpeta llamada "misiontic_2020_ciclo1" puesto que es el nombre que se le dio al proyecto en Django. Dentro de esta carpeta se han auto-generado los archivos necesario para la gestión del proyecto: una carpeta con el mismo nombre del proyecto, y el archivo principal "manage.py".
+Si usted quiere darle otro nombre a su proyecto, tendrá que cambiar la cadena de caracteres final de la instrucción utilizada. 
 
-go to misiontic2020_ciclo1 folder, and open settings:
-ALLOWED_HOSTS = ['localhost', '127.0.0.1]  # line 28
+Es momento de utilizar algún IDE y agregar la carpeta del ejercicio, para así poder modificar el código del mismo de una manera más sencilla (no vaya a cerrar la ventana de terminal, la va a utilizar de nuevo más adelante). 
+Estando en el explorador de archivos del IDE, usted deberá ver en la raíz del ejercicio la carpeta "mision2020_ciclo1"; por favor, expanda esa carpeta. Al expandir, verá el archivo manage.py, y una carpeta llamada de nuevo "mision2020_ciclo1",
+Al expandir esta segunda carpeta, observara varios archivos de python:
+"_ _init_ _".py = Define el contenido de la carpeta como un módulo de python
+asgi.py = permite manejar el módulo como una variable de Django
+settings.py = Configuraciones generales del proyecto en Django
+urls.py = Listado de urls definidas para ser accedidas por el usuario en el MVC
+wsgi.py = permite asociar la aplicación para ser lanzada automáticamente con el servidor Apache
 
-LANGUAGE_CODE = 'es-es'  # line 106
-TIME_ZONE = 'America/Bogota'   # line 106
+Por favor, dirígase al archivo de settings.py, en donde deberá realizar los siguientes cambios para ejecutar por primera vez la aplicación:
+1) Djando define desde que dirección de servidor puede ser ubicado. Como va a correr en la máquina local, le recomendamos que modifique la siguiente línea de código:
+ALLOWED_HOSTS = ['localhost', '127.0.0.1]  # linea 28
 
-LAST-LINE
+2) Es bueno configurar la zona del mundo, para un buen manejo de datos que tengan que ver con fecha, hora, e idioma para el usuario. Para ello, modifique las siguientes líneas de código:
+LANGUAGE_CODE = 'es-es'  # línea 106
+TIME_ZONE = 'America/Bogota'   # línea 108
+
+3) Django maneja temas como imágenes o código de JavaScript en la categoría de "static". Para asegurar que no se tiene problema accediendo a las rutas de estos elementos, agregue al final del archivo la siguiente línea de código.
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-import os # line 14
+4) Finalmente, importe el módulo "os" que le da acceso a python a algunas funcionalidades propias del sistema operativo (como la creación y acceso a carpetas dentro del sistema de archivos):
+import os # línea 14
 
+Ahora, es momemnto de probar que todo anda funcionando correctamente. Claro, no se ha agregado nada del desarrollo web, pero se puede validar que la creación y configuración del proyecto de Django. Para ello, debe regresar a la ventana de comandos ó terminal, y ubicarse en la carpeta raíz del proyecto. Allí, acceda a la carpera del proyecto de Django usando el siguiente comando:
+cd misiontic_2020_ciclo1"
 
-
-Ahora, es necesario ingregar en dicha carpeta. Si lo está haciendo desde la terminar, puede usar la siguiente instr
-cd misiontic2020_ciclo1
+estando allí, ejecute la siguiente instrucción que colocará el proyecto disponible para acceder desde cualquier navegador web:
 python manage.py runserver
 
+Ahora, usando cualquier navegador coloque la dirección: http://localhost:8000, y allí vera una ventana con un cohete que le indicará que el proyecto en Django está bien construido hasta ahora.
 
-create app
+Para continuar, por favor regrese a la ventana de comandos o terminal, y haga la siguiente secuencia de teclas: Ctrl + C.
+
+Es momento de crear la aplicación web dentro del proyecto de Django. Es importante mencionar que en Django se pueden tener varias aplicaciones web, en el caso de que quiera trabajar un proyecto por componentes interconectados. Para nuestro ejercicio, solo se tendrá una aplicación web, la cual será la tienda virtual; para crearla, utilice la siguiente instrucción (debe mantenerse ubicado en la raíz del proyecto de Django, donde está el archivo de "manage.py"):
 python manage.py startapp tienda_virtual
 
-go to settings, in INSTALLED_APPS list add:
-'tienda_virtual', line 41
+En nuestro la app se llama "tienda_virtual", si usted quiere darle otro nombre, debe cambiar el final de la instrucción utilizada anteriormente. Una vez se haya ejecturado esta instrucción, se creará una carpeta con el mismo nombre de la app, y tendrá los archivos fundamentales para el manejo del MVC en Django.
 
+Adicionalmente, debe ir al archivo de "settings.py", ese mismo que modifico hace un par de pasos atrás, y en la lista de INSTALLED_APPS agregue el siguiente elemento:
+'tienda_virtual', #línea 41
 
+Listo, usted ha creado su primer proyecto de Django con una definición inicial de una aplicación web embebida en el mismo.
 
 
 ## Vistas Web de la Tienda Virtual 

@@ -174,6 +174,13 @@ Si bien usted ya relaciono las vistas para que **Django** las reconozca, aún de
 
 En el archivo `urls.py` que usted creo deberá importar dos cosas: (i) la función de **Django** para colocar las rutas de las _URLs_, y (2) las funciones que previamente usted ha definido en el archivo `views.py`. Para importar todas las funciones de otro archivo solo es necesario importar el mismo archivo, y en este caso, como tanto el archivo de `urls.py` y el archivo `views.py` están en la misma carpeta, se usa un `.` para indicarle esto a **Django**.
 
+En cuanto a la lista de patrones de _URL_, se requiere crear una variable llamada `urlpatters`, la cual almacenará dicha lista. Cada _URL_ a agregar se hace con la función `path`, la cual recibe tres argumentos: la expresión regular que representa la _URL_, la vista que debe ser renderizada cuando se busque dicha _URL_, y un nombre identificador de la _URL_. Un ejemplo de esto se muestra a continuación: 
+```
+path('regex', views.funcion_vista, name="nombre")
+```
+
+Así, en nuestro caso, el archivo `urls.py` en la carpeta de la aplicación `tienda_virtual` deberá tener un código similar al que se presenta como sigue:
+
 ```
 from django.urls import path
 from . import views
@@ -187,6 +194,10 @@ urlpatterns = [
 ]
 ```
 
+Sin embargo, ese archivo `urls.py` relaciona las _URLs_ en particular de la aplicación `tienda_virtual`, pero si usted tiene muchas más aplicaciones en el mismo proyecto de **Django** va a tener un archivo de estos por cada aplicación. Ahora, y entendiendo que puede ser un poco confuso, así como cada aplicación tiene un archivo `url.py`, el proyecto global de **Django** tiene su propio archivo `urls.py`, el cual se encuentra en la carpera de configuración del proyecto (en este caso, la carpeta llamada `misiontic_2020_ciclo1/misiontic_2020_ciclo1`). En este archivo debe importar todos los archivos de _URL_ de cada uno de los proyectos. Para ello, debe importar la función `include` que está en el módulo de `django.urls`.
+
+Luego, en la lista, ya existente, llamada `urlpatterns`, debe agregar un elemento en la cual relacione  `aplicacióo.urls` por cada aplicación que tenga. EN nuestro caso, este archivo debería quedar como el siguiente código:
+
 ```
 from django.contrib import admin
 from django.urls import path, include
@@ -196,6 +207,29 @@ urlpatterns = [
     path('tienda_virtual/', include('tienda_virtual.urls')),  
 ]
 ```
+
+Luego de tener definidas las _URLs_, se debe verificar que los enlaces en el menú el archivo `tienda_virtual/templates/tienda_virtual/base.html` sean los correctos, y así la navegación en el sitio web sea la esperada. Para nuestro ejemplo, así se vería el menú del archivo `HTML`, en donde en los atributos de `href` se observan las _URLs_ que se relacionaron para la aplicación:
+```
+<div align="center" width="100%">
+    <table>
+        <tr>
+            <td><b><a href="/tienda_virtual/">Inicio</a>&nbsp;&nbsp;|&nbsp;&nbsp;</b></td>
+            <td><b><a href="/tienda_virtual/productos/">Productos</a>&nbsp;&nbsp;|&nbsp;&nbsp;</b></td>
+            <td><b><a href="/tienda_virtual/carrito_compras/">Carrito de Compras</a>&nbsp;&nbsp;|&nbsp;&nbsp;</b></td>
+            <td><b><a href="/tienda_virtual/historial_compras/">Historial de Compras</a></b></td>
+        </tr>
+    </table>
+</div>
+```
+
+
+Este es un buen momento para verificar que todo ande funcionando bien. Se recomienda volver a utilizar el comando para poner al proyecto de **Django** disponible para acceder a través de navegador web. Por si lo olvido, vaya a la carpera raíz del proyecto, y realice la instrucción:
+```
+python manage.py runserver
+```
+
+Ahora, verá un sitio web sencillo, con el banner, y la opción de navegar a través del menú.
+
 
 
 ## Formularios a Desarrollar 

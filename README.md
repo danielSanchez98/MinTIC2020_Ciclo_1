@@ -32,12 +32,12 @@ python --version
 Una vez tenga activo su entorno virtual, es momento  de crear un archivo en el cual usted coloque los módulos (y se recomienda también las versiones) que usted necesita para el desarrollo apropiado del proyecto. Estando en la raíz del proyecto, cree un archivo denominado `requeriments.txt`, y en él coloque el texto a continuación:
 ```
 setuptools==50.3.0
-*Django*==3.1.2
+Django==3.1.2
 pymongo==3.11.0
 ```
 
 De allí, se tienen la siguiente explicación:
-- *Django*: Framework ampliamente reconocimiento para el desarrollo de python en web, especialmente por la facilidad que brinda al momento de manejar MVC.
+- Django: Framework ampliamente reconocimiento para el desarrollo de python en web, especialmente por la facilidad que brinda al momento de manejar MVC.
 - pymongo: módulo que permite la conexión y manipulación de información en el motor de base de datos de MongoDB.
 - setuptools: librería que ayuda a la gestión de otros módulos con python, mantener actualizaciones, entre otros.
 
@@ -50,7 +50,7 @@ Si usted observa, tener un archivo como este es útil, primero porque puede inst
 
 Para verificar la versión instalada de *Django*, puede usar la siguiente instrucción:
 ```
-python -m *Django* --version
+python -m Django --version
 ```
 
 Ahora, usted tiene su entorno de desarrollo configurado para el ejercicio de la Tienda Virtual. Ahora, es momento de entrar a trabajar con *Django*.
@@ -60,7 +60,7 @@ Ahora, usted tiene su entorno de desarrollo configurado para el ejercicio de la 
 
 Para crear un proyecto en *Django*, teniendo el entorno virtual activo y en la raíz de la carpeta del ejercicio, ejecute el siguiente comando:
 ```
-*Django*-admin startproject misiontic2020_ciclo1
+Django-admin startproject misiontic2020_ciclo1
 ```
 
 Esto creará una carpeta llamada `misiontic_2020_ciclo1` puesto que es el nombre que se le dio al proyecto en *Django*. Dentro de esta carpeta se han auto-generado los archivos necesario para la gestión del proyecto: una carpeta con el mismo nombre del proyecto, y el archivo principal `manage.py`.
@@ -119,7 +119,7 @@ python manage.py startapp tienda_virtual
 
 En nuestro la app se llama `tienda_virtual`, si usted quiere darle otro nombre, debe cambiar el final de la instrucción utilizada anteriormente. Una vez se haya ejecturado esta instrucción, se creará una carpeta con el mismo nombre de la app, y tendrá los archivos fundamentales para el manejo del MVC en *Django*.
 
-Adicionalmente, debe ir al archivo de "settings.py", ese mismo que modifico hace un par de pasos atrás, y en la lista de `INSTALLED_APPS  agregue el siguiente elemento:
+Adicionalmente, debe ir al archivo de "settings.py", ese mismo que modifico hace un par de pasos atrás, y en la lista de `INSTALLED_APPS` agregue el siguiente elemento:
 ```
 'tienda_virtual', #línea 41
 ```
@@ -128,11 +128,49 @@ Listo, usted ha creado su primer proyecto de *Django* con una definición inicia
 
 
 ## Vistas Web de la Tienda Virtual 
-Inicio
-Lista de Productos
-Ver Carrito (incluyendo editar cantidad y eliminar)
-Pagar
-Historial de Compras
+Inicialmente se van a definir las posibles vistas de la Tienda Virtual, es decir, las pantallas gráficas que van a ser utilizadas. 
+Primero, se necesita de un par de carpetas dentro de la carpeta `tienda_virtual` (carpeta de la aplicación). El nombre de la primera carpera será `static`, el nombre de la segunda carpeta es `templates`. Adicionalmente, dentro de cada carpeta debe recomienda exista una carpeta llamada `tienda_virtual`, de nuevo; todo este proceso lo puede verificar usando el IDE de desarrollo. 
+
+Es decir, dentro de la carpeta `tienda_virtual` usted deberá tener las siguientes rutas de carpetas:
+- __static/tienda_virtual/__: Carpeta en la cual se colocan todos los elementos que se consideran como estáticos, es decir, imágenes, archivos de estilo (css), archivos de Javascript, entre otros.
+- __templates/tienda_virtual/__: En Django los `templates` se refieren a los archivos `HTML` que serán usados dentro de la aplicación.
+
+Para este ejemplo en particular, el contenido de ambas carpetas será proporcionado. Por un lado, en la carpeta `static` se tendrá una imagen a forma de banner y un archivo de estilos para que su sitio web se vea bien. Por otro lado, en la carpera `templates` se tendrán los siguientes archivos HTML:
+- __base.html__: Es un archivo que sirve para definir los elementos generales que van a tener todas las pantallas web, como banners, menú, pies de página, estilos, entre otros. Todos los otros archivos HTML invocaran este archivo, y así en cada uno solo se colocará el contenido que puntualmente le corresponde.
+- __index.html__: Página principal que se va a mostrar al usuario. Tiene la información general de la aplicación web.
+- __lista_productos.html__: Se muestran la lista de productos que pueden ser agregados al carrito de compras.
+- __carrito_compras.html__: Se muestra el carrito de compras con los productos que han sido agregados y el costo total de la compra.
+- __pagar.html__: Se muestra un formulario que permite realizar el pago de los productos en el carrito de compras.
+- __historial.html__: Se muestra el historial de las compras realizadas en la Tienda Virtual.
+
+Una vez se tengan los archivos `HTML` en la ubicación correcta, se debe hacer la relación de estas vistas en *Django*. Para ello, en la carpera de la aplicación, en este caso `tienda_virtual` en la raíz del proyecto de *Django*, existe un archivo llamado `views.py`. Este archivo solo tiene la importación de una función llamada `render`, la cual se utiliza para cargar el `HTML` de acuerdo a la vista que se quiera presentar.
+
+Para relacionar las vistas del MVC se tiene un proceso sencillo: para cada pantalla, se debe crear una función, con un nombre a gusto del programador, pero como siempre, se recomienda que el nombre sea bastante claro y diciente; independiente del nombre de la función, esta debe recibir como argumento un `request`. 
+
+Dentro de esta función, usted puede colocar distintas dinámicas, como cargar o transformar datos, pero esto será explicado más adelante. Por ahora, cada función solo retornará la renderización de la pantalla web. A continuación se coloca un código de ejemplo que correspondería a relacionar todas las pantallas que se van a usar en la `tienda_virtual`:
+```
+ef home(request):
+    return render(request, 'tienda_virtual/index.html')
+
+def carrito(request):
+    return render(request, 'tienda_virtual/carrito_compras.html')
+
+def historial(request):
+    return render(request, 'tienda_virtual/historial.html')
+
+def productos(request):
+    return render(request, 'tienda_virtual/lista_productos.html')
+
+def pagos(request):
+    return render(request, 'tienda_virtual/pagar.html')
+```
+
+Como puede observar, la función de `render` tiene dos parámetros: (i) el `request` que recibió la función de la vista, y (ii) la ruta al archivo `HTML`. Es importante mencionar que en este caso, *Django* interpreta a la carpeta `template` como la raíz de los fuentes de `HTML`, por eso no es necesario agregar eso a la ruta del archivo. 
+
+Por ahora, esto es suficiente para relacionar las vistas de manera básica y que *Django* las pueda gestionar. 
+
+## URLs de la Tienda Virtual 
+
 
 
 ## Formularios a Desarrollar 

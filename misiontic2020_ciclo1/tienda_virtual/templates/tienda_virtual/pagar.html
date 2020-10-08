@@ -8,7 +8,12 @@
         <div class="section-title">
             <h2>Portal de Pagos</h2>
         </div>	
-    
+        <div>
+            <form method="POST">{% csrf_token %}
+                {{ frm_pago.as_p }}
+                <input type="submit" value="Pagar" id="btnPay" name="btnPay">
+            </form>
+        </div>
         
     </div>
     </div>

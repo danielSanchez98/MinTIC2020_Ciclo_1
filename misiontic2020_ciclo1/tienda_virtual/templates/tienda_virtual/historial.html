@@ -8,7 +8,25 @@
         <div class="section-title">
             <h2>Historial de Compras</h2>
         </div>	
-    
+        <div>
+            <table>
+                <tr>	
+                    <td><h3>No. Compra</h3></td>
+                    <td><h3>Productos</h3></td>
+                    <td><h3>Costo</h3></td>
+                    <td><h3>Fecha</h3></td>
+                </tr>
+                
+                {% for compra in historial %}
+                    <tr> 
+                        <td>{{ compra.numero }}</td>
+                        <td>{{ compra.productos }}</td>
+                        <td>{{ compra.costo }}</td>
+                        <td>{{ compra.fecha }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
         
     </div>
     </div>

@@ -228,11 +228,12 @@ Este es un buen momento para verificar que todo ande funcionando bien. Se recomi
 python manage.py runserver
 ```
 
-Ahora, verá un sitio web sencillo, con el banner, y la opción de navegar a través del menú.
-
+Ahora, verá un sitio web sencillo, con el banner, y la opción de navegar a través del menú y las diferentes pantallas.
 
 
 ## Formularios a Desarrollar 
+Es momento de agregarle dinámica a nuestra **Tienda Virtual**, es decir, mover información entre el sitio web y la base de datos, además de algunos cálculos con los datos.
+
 Agregar producto a carrito
 Pagar productos del carrito
 

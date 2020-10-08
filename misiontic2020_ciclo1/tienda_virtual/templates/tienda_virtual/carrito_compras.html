@@ -14,13 +14,15 @@
                     <td><h3>Producto</h3></td>
                     <td><h3>Costo</h3></td>
                     <td><h3>Cantidad</h3></td>
+                    <td><h3>Observaciones</h3></td>
                 </tr>
                 
                 {% for producto in productos %}
                     <tr> 
-                        <td>{{ productos.nombre }}</td>
-                        <td>{{ productos.costo }}</td>
-                        <td>{{ productos.cantidad }}</td>
+                        <td>{{ producto.nombre }}</td>
+                        <td>{{ producto.costo }}</td>
+                        <td>{{ producto.cantidad }}</td>
+                        <td>{{ producto.observaciones }}</td>
                     </tr>
                 {% endfor %}
             </table>

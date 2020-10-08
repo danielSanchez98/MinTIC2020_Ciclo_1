@@ -149,7 +149,7 @@ Para relacionar las vistas del MVC se tiene un proceso sencillo: para cada panta
 
 Dentro de esta función, usted puede colocar distintas dinámicas, como cargar o transformar datos, pero esto será explicado más adelante. Por ahora, cada función solo retornará la renderización de la pantalla web. A continuación se coloca un código de ejemplo que correspondería a relacionar todas las pantallas que se van a usar en la `tienda_virtual`:
 ```
-ef home(request):
+def home(request):
     return render(request, 'tienda_virtual/index.html')
 
 def carrito(request):
@@ -234,6 +234,7 @@ Ahora, verá un sitio web sencillo, con el banner, y la opción de navegar a tra
 ## Formularios a Desarrollar 
 Es momento de agregarle dinámica a nuestra **Tienda Virtual**, es decir, mover información entre el sitio web y la base de datos, además de algunos cálculos con los datos.
 
+Primero, se van a definir los formularios a usar en nuestra aplicación. **Django** tiene una forma bastante sencilla para construir dichos formularios y enlazarlos a las pantallas web, y para ello se recomienda crear un archivo denominado `forms.py` en la raíz de la aplicación (la misma en donde está el archivo `views.py`).
 Agregar producto a carrito
 Pagar productos del carrito
 

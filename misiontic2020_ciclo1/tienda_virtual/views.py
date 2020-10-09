@@ -7,16 +7,20 @@ def home(request):
 
 def carrito(request):
     productos = []
-    return render(request, 'tienda_virtual/carrito_compras.html', {'productos':  productos})
+    parametros = {'productos':  productos}
+    return render(request, 'tienda_virtual/carrito_compras.html', parametros)
 
 def historial(request):
     historial = []
-    return render(request, 'tienda_virtual/historial.html', {'historial':  historial})
+    parametros = {'historial':  historial}
+    return render(request, 'tienda_virtual/historial.html', parametros)
 
 def productos(request):
     frm_agregar = forms.agregar_producto()
-    return render(request, 'tienda_virtual/lista_productos.html', {'frm_agregar' :  frm_agregar})
+    parametros = {'frm_agregar' :  frm_agregar}
+    return render(request, 'tienda_virtual/lista_productos.html', parametros)
 
 def pagos(request):
     frm_pago = forms.pagar_carrito()
-    return render(request, 'tienda_virtual/pagar.html', {'frm_pago' :  frm_pago})
+    parametros = {'frm_pago' :  frm_pago}
+    return render(request, 'tienda_virtual/pagar.html', parametros)

@@ -273,11 +273,24 @@ class pagar_carrito(forms.Form):
     observaciones = forms.CharField(label = "Observaciones", required=False)
 ```
 
-Luego de construir los formularios, se pueden agregar dinámicas al sitio web usando **Django**.
+Luego de construir los formularios, se pueden agregar dinámicas al sitio web usando _Python_ que usted ya conoce.
 
 
 ## Código Python dentro del HTML 
+Para transferir cualquier información adentro de los HTML, la forma más sencilla es generar un diccionario con los ítems que se quieran presentar en la web, y enviarlo como tercer parámetro en la función `render` que se está utilziando en el archivo `views.py`. Una definición sencilla de esto se muestra a continuación:
+```
+parametros = {'clave_1': 'valor_11',..,'clave_n': 'valor_n'}
+render(request, 'tienda_virtual/archivo.html', parametros)
+```
 
+En este sentido, es importante definir que se requiere tener en cada una de las pantallas web a trabajar. Para un ejercicio sencillo como el que se está trabajando, se definen estas necesidades como sigue:
+- `carrito_compras.html`: Se deben mostrar los productos que el usuario ha agregado al carrito. 
+- `historial.html`: Se debe mostrar el historial de compras realizadas en la **Tienda Virtual**.
+- `lista_productos.html`: Se debe mostrar la lista de productos y la opción de agregarlos al carrito de compras.
+- `pagar.html`: Se debe mostrar el formulario de pago para que el usuario diligencie, además de motrar el valor total de la compra. 
+
+
+Así, un ejemplo de cómo podría quedar el archivo `views.py` se muestra a continuación:
 ```
 from django.shortcuts import render
 from . import forms
@@ -288,21 +301,32 @@ def home(request):
 
 def carrito(request):
     productos = []
-    return render(request, 'tienda_virtual/carrito_compras.html', {'productos':  productos})
+    parameters = {'productos':  productos}
+    return render(request, 'tienda_virtual/carrito_compras.html', parameters)
 
 def historial(request):
     historial = []
-    return render(request, 'tienda_virtual/historial.html', {'historial':  historial})
+    parameters = {'historial':  historial}
+    return render(request, 'tienda_virtual/historial.html', parameters)
 
 def productos(request):
     frm_agregar = forms.agregar_producto()
-    return render(request, 'tienda_virtual/lista_productos.html', {'frm_agregar' :  frm_agregar})
+    parameters = {'frm_agregar' :  frm_agregar}
+    return render(request, 'tienda_virtual/lista_productos.html', parameters)
 
 def pagos(request):
     frm_pago = forms.pagar_carrito()
-    return render(request, 'tienda_virtual/pagar.html', {'frm_pago' :  frm_pago})
+    parameters = {'frm_pago' :  frm_pago}
+    return render(request, 'tienda_virtual/pagar.html', parameters)
 ```
+
+Para hacer una correcta interacción entre **Django** y el `HTML`, se deben en cuenta varios aspectos:
+- Para utilizar elementos que se encuentren en la carpeta `static` de la aplicación, al inicio del archivo `HTML` se debe agregar la sentencia `{% load static %}`.
+- Para reemplazar el contenido del archivo `HTML` se deben usar las sentencias `{% block content %}` y  `{% endblock %}` al inicio y final del bloque respectivamente.
+- Cualquier otro código _Python_ que se vaya a colocar dentro del `HTML`, dependiendo del caso, será mediante los símbolos `{% code %}` (como es el caso de los ciclos y condicionales), o con los símbolos `{{ }}` (como es el caso de las variables). 
+
 
 ## Colecciones en Mongo 
 Productos
+Carrito
 Compras

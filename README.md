@@ -228,16 +228,80 @@ Este es un buen momento para verificar que todo ande funcionando bien. Se recomi
 python manage.py runserver
 ```
 
-Ahora, verá un sitio web sencillo, con el banner, y la opción de navegar a través del menú y las diferentes pantallas.
+Ahora, verá un sitio web sencillo, con el banner, y la opción de navegar a través del menú y las diferentes pantallas. Para acceder a la tiendar virtual, por favor vaya al siguiente link [http://localhost:8000/tienda_virtual](http://localhost:8000/tienda_virtual).
 
 
 ## Formularios a Desarrollar 
 Es momento de agregarle dinámica a nuestra **Tienda Virtual**, es decir, mover información entre el sitio web y la base de datos, además de algunos cálculos con los datos.
 
-Primero, se van a definir los formularios a usar en nuestra aplicación. **Django** tiene una forma bastante sencilla para construir dichos formularios y enlazarlos a las pantallas web, y para ello se recomienda crear un archivo denominado `forms.py` en la raíz de la aplicación (la misma en donde está el archivo `views.py`).
-Agregar producto a carrito
-Pagar productos del carrito
+Primero, se van a definir los formularios a usar en nuestra aplicación. **Django** tiene una forma bastante sencilla para construir dichos formularios y enlazarlos a las pantallas web, y para ello se recomienda crear un archivo denominado `forms.py` en la raíz de la aplicación (la misma en donde está el archivo `views.py`). 
 
+Para crear un formulario, se debe crear una clase (tranquilo, sabemos que clases no fue un tema de este ciclo, pero por ahora, va a ser un manejo sencillo de las mismas); similar a como se crea una función, se tiene una palabra reservada llamada `class` que permite crear una clase, luego debe ir el nombre, y finalmente un argumento el cual será un formulario de **Django**, así que debera importar un módulo para esto. Un ejemplo de código de lo mencionado se muestra a continuación:
+```
+#archivo forms.py
+from django import forms
+
+class formulario(forms.Form):
+    #bloque
+```
+
+Como puede observar, con la línea `from django import forms` se importa el módulo de formularios de **Django**, y este módulo es el que utiliza la clase como argumento para construir los formularios.
+
+**Django** en su módulo `forms` proporciona una serie de componentes clásicos de los formularios (lo invitamos a revisar [] la documentación de correspondiente para mayor detalle). Para este ejercicio, vamos a utilizar dos componentes de los más utilizados, y que serán suficientes para nuestros propósitos:
+- _forms.CharField_: Se refiere a un campo de texto abierto, en donde el usuario puede escribir de manera libre. Esto quiere decir que este componente entrega información que es tipo de dato `string`.
+- _forms.ChoiceField_: Se refiere a un campo con opciones desplegables de las cuales solo se debe seleccionar una. Este campo suele ser alimentado con una lista de tuplas (parejas), y la tupla seleccionada será la información entregada por el componente.
+
+Para hacer una **Tienda Virtual** sencilla, se van a manejar dos formularios, uno para agregar productos al carrito, y otro para el proceso de pago. 
+
+En nuestro ejemplo, el primer formulario se llamará `agregar_producto`, y tendrá un campo desplegable para el _producto_ seleccionado (por ahora será una lista vacía), y otro campo desplegable para la _cantidad_ (lista que se puede construir utilizando un ciclo `for` y una función `range` en donde usted definirá la máxima cantidad de elementos que un usuario puede llevar); ambos campos son obligatorios. A continuación se muestra un código para ejemplificar esta definición:
+```
+class agregar_producto(forms.Form):
+    productos = ()
+    cantidad = ((i, i) for i in range(16))
+    
+    producto = forms.ChoiceField(label = "Producto", required=True, choices=productos)
+    cantidad = forms.ChoiceField(label = "Cantidad", required=True, choices=cantidad)
+```
+
+El segundo formulario se llamará `pagar_carrito`, el cual tendrá un campo desplegable para el método de pago (se crea una lista de con tuplas de manera manual), un campo de texto para colocar la dirección de entrega, y un campo de observaciones. El _método de pago_ y la _dirección_ son obligatorios; el campo de _observación_ es opcional. A continuación se muestra un ejemplo de como podría quedar construido este formulario:
+```
+class pagar_carrito(forms.Form):
+    metodos = (('Tarjeta de Crédito', 'Tarjeta de Crédito'), ('Pago en Efectivo', 'Pago en Efectivo'), ('Tarjeta Débito', 'Tarjeta Débito'))
+
+    metodo_pago = forms.ChoiceField(label = "Método de Pago", required=True, choices=metodos)
+    direccion = forms.CharField(label = "Dirección de Envío", required=True)
+    observaciones = forms.CharField(label = "Observaciones", required=False)
+```
+
+Luego de construir los formularios, se pueden agregar dinámicas al sitio web usando **Django**.
+
+
+## Código Python dentro del HTML 
+
+```
+from django.shortcuts import render
+from . import forms
+
+# Create your views here.
+def home(request):
+    return render(request, 'tienda_virtual/index.html')
+
+def carrito(request):
+    productos = []
+    return render(request, 'tienda_virtual/carrito_compras.html', {'productos':  productos})
+
+def historial(request):
+    historial = []
+    return render(request, 'tienda_virtual/historial.html', {'historial':  historial})
+
+def productos(request):
+    frm_agregar = forms.agregar_producto()
+    return render(request, 'tienda_virtual/lista_productos.html', {'frm_agregar' :  frm_agregar})
+
+def pagos(request):
+    frm_pago = forms.pagar_carrito()
+    return render(request, 'tienda_virtual/pagar.html', {'frm_pago' :  frm_pago})
+```
 
 ## Colecciones en Mongo 
 Productos

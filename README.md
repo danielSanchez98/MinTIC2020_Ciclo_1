@@ -323,10 +323,26 @@ def pagos(request):
 Para hacer una correcta interacción entre **Django** y el `HTML`, se deben en cuenta varios aspectos:
 - Para utilizar elementos que se encuentren en la carpeta `static` de la aplicación, al inicio del archivo `HTML` se debe agregar la sentencia `{% load static %}`.
 - Para reemplazar el contenido del archivo `HTML` se deben usar las sentencias `{% block content %}` y  `{% endblock %}` al inicio y final del bloque respectivamente.
-- Cualquier otro código _Python_ que se vaya a colocar dentro del `HTML`, dependiendo del caso, será mediante los símbolos `{% code %}` (como es el caso de los ciclos y condicionales), o con los símbolos `{{ }}` (como es el caso de las variables). 
+- Cualquier otro código _Python_ que se vaya a colocar dentro del `HTML`, dependiendo del caso, será mediante los símbolos `{% code %}` (como es el caso de los ciclos y condicionales), o con los símbolos `{{ code }}` (como es el caso de las variables). 
 
+En este caso, para agregar una lista de elementos al `HTML` debe hacer una iteracion al parámetro enviado a través del `render`. En ejemplo de un `HTML` con ciclo `for` sería el siguiente:
+```
+{% block content %}
+    {% for elemento in lista %}
+        {{ elemento.campo_1 }}
+        {{ elemento.campo_2 }}
+        ...
+        {{ elemento.campo_n }}
+    {% endfor %}
+{% endblock %}
+```
 
-## Colecciones en Mongo 
-Productos
-Carrito
-Compras
+Para colocar un formulario, solo se requiere invocarlo por la clave en el diccionario, como se muestra a continuación:
+```
+{% block content %}
+<form method="POST">{% csrf_token %}
+    {{ frm_agregar.as_p }}
+    <input type="submit" value="Texto de Botón" id="btn" name="btn">
+</form>
+{% endblock %}
+```

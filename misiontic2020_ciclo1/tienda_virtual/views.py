@@ -17,10 +17,11 @@ def historial(request):
 
 def productos(request):
     frm_agregar = forms.agregar_producto()
-    parametros = {'frm_agregar' :  frm_agregar}
+    parametros = {'frm_agregar':  frm_agregar}
     return render(request, 'tienda_virtual/lista_productos.html', parametros)
 
 def pagos(request):
     frm_pago = forms.pagar_carrito()
-    parametros = {'frm_pago' :  frm_pago}
+    costo = 0
+    parametros = {'frm_pago':  frm_pago, 'costo': costo}
     return render(request, 'tienda_virtual/pagar.html', parametros)

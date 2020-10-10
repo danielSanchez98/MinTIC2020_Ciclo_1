@@ -18,7 +18,7 @@ h3 {
 	font-family: 'Montserrat', sans-serif;
 	font-size: 22px;
 	font-weight: 700;
-	color: #FFF;
+	color: #5100af;
 }
 h4 {
 	font-size: 18px;
@@ -37,8 +37,9 @@ p.intro {
 	line-height: 24px;
 }
 a {
+	text-decoration: none;
 	color: #1f386e;
-	font-weight: 400;
+	font-weight: 500;
 }
 a:hover, a:focus {
 	text-decoration: none;
@@ -67,7 +68,7 @@ hr {
 	transition: all 0.8s;
 }
 #menu.navbar-default {
-	background-color: #fff;
+	background-color: #000;
 	border-color: rgba(231, 231, 231, 0);
 	box-shadow: 0 0 30px rgba(0,0,0,0.2)
 }
@@ -96,25 +97,12 @@ hr {
 	color: #ce2a36 !important;
 	background-color: transparent;
 }
-#menu .phone {
-	font-family: 'Montserrat', sans-serif;
-	margin: 4px 0 0 120px;
-	float: left;
-	font-size: 16px;
-	font-weight: 400;
-	color: #999;
-}
-#menu .phone span {
-	font-size: 14px;
-	display: block;
-	color: #1f386e;
-}
 .navbar-toggle {
 	border-radius: 0;
 }
 .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
-	background-color: #fff;
-	border-color: #fff;
+	background-color: #000;
+	border-color: #000;
 }
 .navbar-default .navbar-toggle:hover>.icon-bar {
 	background-color: #1b6d3f;
@@ -123,7 +111,7 @@ hr {
 	margin-bottom: 80px;
 }
 .section-title p{
-	color: #fff;
+	color: #000;
 }
 .section-title h2 {
 	position: relative;
@@ -143,7 +131,7 @@ hr {
 }
 .btn-custom {
 	text-transform: uppercase;
-	color: #fff;
+	color: #000;
 	background-color: #e52f3c;
 	padding: 14px 20px;
 	letter-spacing: 1px;
@@ -154,7 +142,7 @@ hr {
 	transition: all 0.3s;
 }
 .btn-custom:hover, .btn-custom:focus, .btn-custom.focus, .btn-custom:active, .btn-custom.active {
-	color: #fff;
+	color: #000;
 	background-color: #1f386e;
 }
 .btn:active, .btn.active {
@@ -172,7 +160,7 @@ a:focus, .btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus, .btn:acti
 	position: absolute;
 	text-align: center;
 	margin: 0 auto;
-	color: #fff;
+	color: #000;
 	background: rgba(31, 56, 110, 0.8);
 	padding: 30% 0 0 0;
 	height: 100%;
@@ -182,7 +170,7 @@ a:focus, .btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus, .btn:acti
 }
 .hover-bg .hover-text>h4 {
 	opacity: 0;
-	color: #fff;
+	color: #000;
 	-webkit-transform: translateY(100%);
 	transform: translateY(100%);
 	transition: all 0.3s;
@@ -200,76 +188,11 @@ a:focus, .btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus, .btn:acti
 .hover-bg:hover .hover-text {
 	opacity: 1;
 }
-/#contact {
-	padding: 100px 0 60px 0;
-	background: #1f386e;
-	color: rgba(255,255,255,.65);
-}
-#contact .section-title {
-	margin-bottom: 40px;
-}
-#contact h2 {
-	color: #fff;
-	margin-top: 10px;
-	margin-bottom: 15px;
-	padding-bottom: 15px;
-	border-bottom: 1px solid rgba(255, 255, 255, 0.09);
-}
-#contact h4 {
-	color: #fff;
-	margin-top: 22px;
-	margin-bottom: 60px;
-	padding-bottom: 20px;
-	border-bottom: 1px solid rgba(255, 255, 255, 0.09);
-}
-#contact form {
-	padding-top: 20px;
-}
-#contact h3 {
-	font-size: 17px;
-	font-weight: 600;
-}
-#contact .text-danger {
-	color: #cc0033;
-	text-align: left;
-}
-#contact .btn-custom {
-	margin: 30px 0;
-	background: transparent;
-	border: 2px solid #fff;
-}
-#contact .btn-custom:hover {
-	color: #1f386e;
-	background: #fff;
-}
 label {
 	font-size: 12px;
 	font-weight: 400;
 	font-family: 'Open Sans', sans-serif;
 	float: left;
-}
-#contact .form-control {
-	display: block;
-	width: 100%;
-	padding: 6px 12px;
-	font-size: 16px;
-	line-height: 1.42857143;
-	color: #444;
-	background-color: #fff;
-	background-image: none;
-	border: 1px solid #ddd;
-	border-radius: 0;
-	-webkit-box-shadow: none;
-	box-shadow: none;
-	-webkit-transition: none;
-	-o-transition: none;
-	transition: none;
-}
-#contact .form-control:focus {
-	border-color: #999;
-	outline: 0;
-	-webkit-box-shadow: transparent;
-	box-shadow: transparent;
 }
 .form-control::-webkit-input-placeholder {
 color: #777;
@@ -283,23 +206,16 @@ color: #777;
 .form-control:-ms-input-placeholder {
 color: #777;
 }
-#contact .contact-item {
-	margin: 20px 0;
-}
-#contact .contact-item span {
-	color: rgba(255,255,255,1);
-	display: block;
-}
 
 form {
 	letter-spacing: 1px;
-	color: #ffffff;
+	color: #000000;
 }
 form input , select, textarea{
 	margin-top: 10px;
 }
 form h3 {
-	border-bottom: 1px solid rgba(255,255,255,0.1);
+	border-bottom: 1px solid rgba(0,0,0,0.1);
 	padding-bottom: 10px;
 	margin-bottom: 30px;
 	text-align: center;
@@ -309,10 +225,10 @@ form textarea{
 	resize: none;
 }
 form table tr td{
-	border: 1px solid rgba(255,255,255,0.1);
+	border: 1px solid rgba(80,0,189,0.1);
 }
 .container-box-title {
-	border: 1px solid rgba(255,255,255,0.1);
+	border: 1px solid rgba(0,0,0,0.1);
 	text-align: center;
 	padding-top: 10px;
 	padding-bottom: 10px;
@@ -321,7 +237,7 @@ form table tr td{
 	margin-bottom: 0px;
 }
 .container-box-1{
-	border: 1px solid rgba(255,255,255,0.1);
+	border: 1px solid rgba(0,0,0,0.1);
 	text-align: center;
 	padding-top: 10px;
 	padding-bottom: 10px;
@@ -333,14 +249,14 @@ form table tr td{
 	margin-top: 15px;
 }
 .container-box-title-2{
-	border: 1px solid rgba(255,255,255,0.1);
+	border: 1px solid rgba(0,0,0,0.1);
 	margin-bottom:0px;
 	margin-top: 0;
 	padding-top: 10px;
 	padding-bottom: 5px;
 }
 .container-box-2{
-	border: 1px solid rgba(255,255,255,0.1);
+	border: 1px solid rgba(0,0,0,0.1);
 	text-align: center;
 	padding-top: 0px;
 	padding-bottom: 10px;
@@ -373,21 +289,10 @@ form table tr td{
 	line-height: 50px;
 }
 .form-box{
-	border: 1px solid rgba(255,255,255,0.1);
+	border: 1px solid rgba(0,0,0,0.1);
 	margin-top: 30px;
 	margin-bottom: 10px;
 }
 .error-message{
 	margin-top: 20px;
-}
-.message-box {
-	border:1px solid rgba(255,255,255,0.1);
-	padding: 30px 10px 30px 10px;
-	margin: 80px 0 60px 0;
-	text-align: center;
-	font-weight: 20px;
-}
-.message-box p{
-	font-size: 20px;
-	color: white;
 }

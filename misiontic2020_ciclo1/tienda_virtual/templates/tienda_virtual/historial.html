@@ -11,14 +11,13 @@
         <div>
             <table>
                 <tr>	
-                    <td><h3>No. Compra</h3></td>
-                    <td><h3>Productos</h3></td>
-                    <td><h3>Costo</h3></td>
-                    <td><h3>Fecha</h3></td>
-                    <td><h3>Método de Pago</h3></td>
-                    <td><h3>Dirección de Envío</h3></td>
+                    <td><b>No. Compra</b></td>
+                    <td><b>Productos</b></td>
+                    <td><b>Costo</b></td>
+                    <td><b>Fecha</b></td>
+                    <td><b>Método de Pago</b></td>
+                    <td><b>Dirección de Envío</b></td>
                 </tr>
-                
                 {% for compra in historial %}
                     <tr> 
                         <td>{{ compra.numero }}</td>

@@ -6,7 +6,6 @@ class agregar_producto(forms.Form):
     
     producto = forms.ChoiceField(label = "Producto", required=True, choices=productos)
     cantidad = forms.ChoiceField(label = "Cantidad", required=True, choices=cantidad)
-    observaciones = forms.CharField(label = "Observaciones", required=False)
 
 
 class pagar_carrito(forms.Form):

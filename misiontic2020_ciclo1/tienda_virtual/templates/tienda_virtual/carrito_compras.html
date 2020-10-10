@@ -11,10 +11,9 @@
         <div>
             <table>
                 <tr>	
-                    <td><h3>Producto</h3></td>
-                    <td><h3>Costo</h3></td>
-                    <td><h3>Cantidad</h3></td>
-                    <td><h3>Observaciones</h3></td>
+                    <td><b>Producto</b></td>
+                    <td><b>Costo</b></td>
+                    <td><b>Cantidad</b></td>
                 </tr>
                 
                 {% for producto in productos %}
@@ -22,7 +21,6 @@
                         <td>{{ producto.nombre }}</td>
                         <td>{{ producto.costo }}</td>
                         <td>{{ producto.cantidad }}</td>
-                        <td>{{ producto.observaciones }}</td>
                     </tr>
                 {% endfor %}
             </table>

@@ -16,13 +16,25 @@ Siendo así, vaya a la ventana de comandos (terminal, powershell, o similar), y 
 ```
 python -m venv nombre_entorno
 ```
+NOTA: En caso de que el anterior comando no se pueda ejecutar, ya que en ocasiones python no reconoce el ambiente virtual (en inglés virtual environment), deberá ejecutar el siguiente comando:
 
-Para este ejercicio, el nombre del entorno será `env` (es conmún que los desarrolladores usen `env` como nombre del entorno virtual). Para trabajar dentro del entorno virtual, primero debe activarse el mismo, lo cual puede hacer con la siguiente instrucción:
+Linux:
+```
+sudo apt-get install python3-venv
+```
+
+Windows:
+```
+pip install virtualenv
+```
+
+Para este ejercicio, el nombre del entorno será `env` (es común que los desarrolladores usen `env` como nombre del entorno virtual). Para trabajar dentro del entorno virtual, primero debe activarse el mismo, lo cual puede hacer con la siguiente instrucción:
 ```
 source env/bin/activate
 ```
+Si usted coloco un nombre distinto para el entorno virtual, deberá ajustar la instrucción anterior.
 
-si usted coloco un nombre distinto para el entorno virtual, deberá ajustar la instrucción anterior.
+Recuerde que al ejecutar el comando anterior el entorno virtual quedará activo. Esta activación del entorno virtual se perderá cada vez que usted apague su computador. Por lo anterior, le pedimos el favor que cada vez que cierre la terminal y vuelva a tratar de ejecutar los comandos que aparecen a continuación, ejecute nuevamente la instrucción anterior.
 
 En este punto puede verificar la versión de python usada dentro del entorno virtual usando la instrucción:
 ```
@@ -51,6 +63,11 @@ Si usted observa, tener un archivo como este es útil, primero porque puede inst
 Para verificar la versión instalada de **Django**, puede usar la siguiente instrucción:
 ```
 python -m django --version
+```
+
+Al ejecutar la sentencia anterior le debería aparecer lo siguiente:
+```
+3.1.2
 ```
 
 Ahora, usted tiene su entorno de desarrollo configurado para el ejercicio de la Tienda Virtual. Ahora, es momento de entrar a trabajar con **Django**.
@@ -88,17 +105,19 @@ LANGUAGE_CODE = 'es-es'  # línea 106
 TIME_ZONE = 'America/Bogota'   # línea 108
 ```
 
-3. **Django** maneja temas como imágenes o código de JavaScript en la categoría de _static_. Para asegurar que no se tiene problema accediendo a las rutas de estos elementos, agregue al final del archivo la siguiente línea de código.
-```
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-```
-
-4. Finalmente, importe el módulo `os` que le da acceso a python a algunas funcionalidades propias del sistema operativo (como la creación y acceso a carpetas dentro del sistema de archivos):
+3. Importe el módulo `os` que le da acceso a python a algunas funcionalidades propias del sistema operativo (como la creación y acceso a carpetas dentro del sistema de archivos), esto lo necesitaremos para el punto 4:
 ```
 import os # línea 14
 ```
 
-Ahora, es momemnto de probar que todo anda funcionando correctamente. Claro, no se ha agregado nada del desarrollo web, pero se puede validar que la creación y configuración del proyecto de **Django**. Para ello, debe regresar a la ventana de comandos ó terminal, y ubicarse en la carpeta raíz del proyecto. Allí, acceda a la carpera del proyecto de **Django** usando el siguiente comando:
+
+4. Finalmente, **Django** maneja temas como imágenes o código de JavaScript en la categoría de _static_. Para asegurar que no se tiene problema accediendo a las rutas de estos elementos, agregue al final del archivo la siguiente línea de código.
+```
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+```
+
+
+Ahora, es momento de probar que todo anda funcionando correctamente. Claro, no se ha agregado nada del desarrollo web, pero se puede validar que la creación y configuración del proyecto de **Django** es correcta. Para ello, debe regresar a la ventana de comandos ó terminal, y ubicarse en la carpeta raíz del proyecto. Allí, acceda a la carpera del proyecto de **Django** usando el siguiente comando:
 ```
 cd misiontic_2020_ciclo1"
 ```
@@ -110,19 +129,34 @@ python manage.py runserver
 
 Ahora, usando cualquier navegador coloque la dirección: [http://localhost:8000](http://localhost:8000), y allí vera una ventana con un cohete que le indicará que el proyecto en **Django** está bien construido hasta ahora.
 
-Para continuar, por favor regrese a la ventana de comandos o terminal, y haga la siguiente secuencia de teclas: `Ctrl + C`.
+![django inicial](django-init.png)
+
+Para continuar, por favor regrese a la ventana de comandos o terminal, y haga la siguiente secuencia de teclas: `Ctrl + C`. Esta secuencia de comandos se realiza para detener la ejecución de **Django**.
+
+Verifique que su estructura de archivos del proyecto dentro de **Visual Studio Code** se parezca a la siguiente imagen:
+
+![arbol-antes](arbol-antes-tienda-virtual.png)
 
 Es momento de crear la aplicación web dentro del proyecto de **Django**. Es importante mencionar que en **Django** se pueden tener varias aplicaciones web, en el caso de que quiera trabajar un proyecto por componentes interconectados. Para nuestro ejercicio, solo se tendrá una aplicación web, la cual será la tienda virtual; para crearla, utilice la siguiente instrucción (debe mantenerse ubicado en la raíz del proyecto de **Django**, donde está el archivo de `manage.py`):
 ```
 python manage.py startapp tienda_virtual
 ```
 
-En nuestro la app se llama `tienda_virtual`, si usted quiere darle otro nombre, debe cambiar el final de la instrucción utilizada anteriormente. Una vez se haya ejecturado esta instrucción, se creará una carpeta con el mismo nombre de la app, y tendrá los archivos fundamentales para el manejo del MVC en **Django**.
+Una vez ejecute el anterior comando, verifique nuevamente si su estructura de archivos se parece a la siguiente imagen:
 
-Adicionalmente, debe ir al archivo de "settings.py", ese mismo que modifico hace un par de pasos atrás, y en la lista de `INSTALLED_APPS` agregue el siguiente elemento:
+![arbol-despues](arbol-despues-tienda-virtual.png)
+
+En nuestro proyecto, la app se llama `tienda_virtual`. Si usted quiere darle otro nombre, debe cambiar el final de la instrucción utilizada anteriormente. Una vez se haya ejecturado esta instrucción, se creará una carpeta con el mismo nombre de la app, y tendrá los archivos fundamentales para el manejo del MVC en **Django**.
+
+Adicionalmente, debe ir al archivo de "settings.py" dentro de la aplicación mision **misiontic2020_ciclo1**, ese mismo que modificó hace un par de pasos atrás, y en la lista de `INSTALLED_APPS` agregue el siguiente elemento:
 ```
-'tienda_virtual', #línea 41
+'tienda_virtual', #~línea 41
 ```
+
+El archivo se debe parecer a la siguiente imagen:
+
+![settings-tienda-virtual](settings-tienda-virtual.png)
+
 
 Listo, usted ha creado su primer proyecto de **Django** con una definición inicial de una aplicación web embebida en el mismo.
 

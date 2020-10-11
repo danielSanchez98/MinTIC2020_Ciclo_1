@@ -100,7 +100,7 @@ import os # línea 14
 
 Ahora, es momemnto de probar que todo anda funcionando correctamente. Claro, no se ha agregado nada del desarrollo web, pero se puede validar que la creación y configuración del proyecto de **Django**. Para ello, debe regresar a la ventana de comandos ó terminal, y ubicarse en la carpeta raíz del proyecto. Allí, acceda a la carpera del proyecto de **Django** usando el siguiente comando:
 ```
-cd misiontic_2020_ciclo1"
+cd misiontic_2020_ciclo1
 ```
 
 estando allí, ejecute la siguiente instrucción que colocará el proyecto disponible para acceder desde cualquier navegador web:
@@ -345,4 +345,53 @@ Para colocar un formulario, solo se requiere invocarlo por la clave en el diccio
     <input type="submit" value="Texto de Botón" id="btn" name="btn">
 </form>
 {% endblock %}
+```
+
+## PyMongo y Transacciones con la Base de Datos
+Una vez se tiene la aplicación construida en su base fundamental, lo que incluye el MVC, formularios, y la interacción con el `HTML` solo falta un elemento adicional: las transacciones con la Base de Datos. Es importante tener instalado `MongoDB` para completar el ejercicio.
+
+Por un lado, para la información que se quiera presentar en los `HTML` y se cargue desde la base de datos, las transacciones deben ser realizadas en el archivo `views.py`, en donde están las funciones que conectan las vistas con los templates. En este sentido, en la función que corresponda se debe agregar la información obtenida de la base de datos a una lista, que será enviada como un parámetro.
+
+Para este ejercicio, las siguientes son las modificaciones que se deben realizar para completar las transacciones con la base de datos, y por consiguiente, completar la aplicación en su primera versión:
+1. Ir a MongoDB, y crear una base de datos para el ejercicio; en este caso, se crea una base de datos de nombre `tiendaVirtual`. En esta base de datos, es necesario que usted cree tres colecciones: (i) _productos_, (ii) _compras_, y (iii) _carrito_. En la consola de `MongoDB` sería algo similar a la siguiente secuencia de instrucciones;
+```
+use tiendaVirtual
+db.createCollection('productos')
+db.createCollection('compras')
+db.createCollection('carrito')
+```
+2. Invocar al cliente de `PyMongo` y hacer la conexión a la base de datos que usted haya definido en `MongoDB`. Esto debe hacerse antes de la declaración de las funciones, para que esta conexión esté definida en un alcance global del archivo:
+```
+client = MongoClient('mongodb://localhost:27017/')
+db_tienda_virtual = client.tiendaVirtual
+```
+3. La función `carrito` requiere cargar los elementos que estén en la colección del `carrito`, así que se debe generar el cursos y agregar los elementos a la lista `productos` que ya había sido definida como vacía. Así, usted deberá tener una función similar a la siguiente:
+```
+def carrito(request):
+    productos = []
+    cursor = db_tienda_virtual['carrito'].find()
+    for document in cursor:
+        temp = {}
+        temp['nombre'] = document['nombre']
+        temp['costo'] = document['costo']
+        temp['cantidad'] = document['cantidad']
+        productos.append(temp)
+
+    parametros = {'productos':  productos}
+    return render(request, 'tienda_virtual/carrito_compras.html', parametros)
+``` 
+4. Similar al anterior numeral, en la función de `historial` se debe cargar la información contenida en la colección de `compras`. El proceso debe ser similar al de la función `carrito`.
+5. La función de `productos` requiere que la información almacenada en la colección de `productos` sea cargada desde la base de datos, y así mostrar esa lista al usuario en la pantalla web.
+6. La función de `pagos` necesita calcular el costo total de los elementos en el carrito para realizar el pago. En este caso, se necesita recorrer cada uno de los elementos en la colección de `carrito`, y calcular el pago total teniendo en cuenta los campos de `costo` y `cantidad`, esto utilizando un ciclo `for`, como se muestra a continuación:
+```
+def pagos(request):
+    frm_pago = forms.pagar_carrito()
+    costo = 0
+    
+    cursor = db_tienda_virtual['carrito'].find()
+    for document in cursor:
+        costo += int(document['costo']) * int(document['cantodad'])
+    
+    parametros = {'frm_pago':  frm_pago, 'costo': costo}
+    return render(request, 'tienda_virtual/pagar.html', parametros)
 ```

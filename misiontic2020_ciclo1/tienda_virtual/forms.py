@@ -1,7 +1,12 @@
 from django import forms
+from pymongo import MongoClient
 
 class agregar_producto(forms.Form):
-    productos = ()
+    client = MongoClient('mongodb://localhost:27017/')
+    db_tienda_virtual = client.tiendaVirtual
+    
+    cursor = db_tienda_virtual['productos'].find()
+    productos = ((document['nombre'], document['costo']) for document in cursor)
     cantidad = ((i, i) for i in range(16))
     
     producto = forms.ChoiceField(label = "Producto", required=True, choices=productos)

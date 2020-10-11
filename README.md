@@ -49,7 +49,7 @@ pymongo==3.11.0
 ```
 
 De allí, se tienen la siguiente explicación:
-- Django: Framework ampliamente reconocimiento para el desarrollo de python en web, especialmente por la facilidad que brinda al momento de manejar MVC.
+- Django: Framework ampliamente reconocimiento para el desarrollo de python en web, especialmente por la facilidad que brinda al momento de manejar MVC (model-view-controller o modelo-vista-controlador).
 - pymongo: módulo que permite la conexión y manipulación de información en el motor de base de datos de MongoDB.
 - setuptools: librería que ayuda a la gestión de otros módulos con python, mantener actualizaciones, entre otros.
 
@@ -163,19 +163,31 @@ Listo, usted ha creado su primer proyecto de **Django** con una definición inic
 
 ## Vistas Web de la Tienda Virtual 
 Inicialmente se van a definir las posibles vistas de la Tienda Virtual, es decir, las pantallas gráficas que van a ser utilizadas. 
-Primero, se necesita de un par de carpetas dentro de la carpeta `tienda_virtual` (carpeta de la aplicación). El nombre de la primera carpera será `static`, el nombre de la segunda carpeta es `templates`. Adicionalmente, dentro de cada carpeta debe recomienda exista una carpeta llamada `tienda_virtual`, de nuevo; todo este proceso lo puede verificar usando el IDE de desarrollo. 
+Primero, se necesita de un par de carpetas dentro de la carpeta `tienda_virtual` (carpeta de la aplicación). El nombre de la primera carpera será `static`, el nombre de la segunda carpeta es `templates`. Adicionalmente, dentro de cada carpeta se recomienda que exista una carpeta llamada `tienda_virtual`. De nuevo, todo este proceso lo puede verificar usando el IDE de desarrollo. 
 
 Es decir, dentro de la carpeta `tienda_virtual` usted deberá tener las siguientes rutas de carpetas:
 - _static/tienda_virtual/_: Carpeta en la cual se colocan todos los elementos que se consideran como estáticos, es decir, imágenes, archivos de estilo (css), archivos de Javascript, entre otros.
 - _templates/tienda_virtual/_: En **Django** los `templates` se refieren a los archivos `HTML` que serán usados dentro de la aplicación.
 
-Para este ejemplo en particular, el contenido de ambas carpetas será proporcionado. Por un lado, en la carpeta `static` se tendrá una imagen a forma de banner y un archivo de estilos para que su sitio web se vea bien. Por otro lado, en la carpera `templates` se tendrán los siguientes archivos HTML:
+En la siguiente imagen, podrá ver como se debe visualizar su estructura de archivos:
+
+![static-templates](statics-templates.png)
+
+Para este ejemplo en particular, el contenido de ambas carpetas será proporcionado. Por un lado, en la carpeta `static` se tendrá una imagen a forma de banner y un archivo de estilos para que su sitio web se vea bien los cuales deberá copiar en su carpeta de `static` es decir en **misiontic2020_ciclo1/tienda_virtual/static/tienda_virtual/**. Por otro lado, en la carpera `templates` se tendrán los siguientes archivos HTML:
 - _base.html_: Es un archivo que sirve para definir los elementos generales que van a tener todas las pantallas web, como banners, menú, pies de página, estilos, entre otros. Todos los otros archivos HTML invocaran este archivo, y así en cada uno solo se colocará el contenido que puntualmente le corresponde.
 - _index.html_: Página principal que se va a mostrar al usuario. Tiene la información general de la aplicación web.
 - _lista_productos.html_: Se muestran la lista de productos que pueden ser agregados al carrito de compras.
 - _carrito_compras.html_: Se muestra el carrito de compras con los productos que han sido agregados y el costo total de la compra.
 - _pagar.html_: Se muestra un formulario que permite realizar el pago de los productos en el carrito de compras.
 - _historial.html_: Se muestra el historial de las compras realizadas en la Tienda Virtual.
+
+Esta carpeta **templates** junto con sus archivos también los deberá copiar en su carpeta correspondientes es decir en **misiontic2020_ciclo1/tienda_virtual/templates/tienda_virtual/** 
+
+Su estructura de archivos se debería ver como sigue:
+
+![estructura-static](estructura-static.png)
+
+Para este punto se le solicita que descargue los archivos desde la url suministrada.
 
 Una vez se tengan los archivos `HTML` en la ubicación correcta, se debe hacer la relación de estas vistas en **Django**. Para ello, en la carpera de la aplicación, en este caso `tienda_virtual` en la raíz del proyecto de **Django**, existe un archivo llamado `views.py`. Este archivo solo tiene la importación de una función llamada `render`, la cual se utiliza para cargar el `HTML` de acuerdo a la vista que se quiera presentar.
 
@@ -204,11 +216,11 @@ Como puede observar, la función de `render` tiene dos parámetros: (i) el `requ
 Por ahora, esto es suficiente para relacionar las vistas de manera básica y que **Django** las pueda gestionar. 
 
 ## URLs de la Tienda Virtual 
-Si bien usted ya relaciono las vistas para que **Django** las reconozca, aún debe enlazar cada una de esas vistas a una `URL` para que puedan ser accedidas en el navegador web. Para ello, en la carpeta de la aplicación `tienda_virtual`, cree un archivo denominado `urls.py`. Así como para cada pantalla web usted creo una función en `views.py`, cada una de dichas funciones para ser invocada debe ser agregada a una lista de patrones de _URL_ (`urlpatterns`), es decir, por cada pantalla web debe haber un patrón de _URL_ relacionado el cual si el usuario coloca en el navegador web, le indica a **Django** cuál de las pantallas web debe ser renderizada.
+Si bien usted ya relacionó las vistas para que **Django** las reconozca, aún debe enlazar cada una de esas vistas a una `URL` para que puedan ser accedidas en el navegador web. Para ello, en la carpeta de la aplicación `tienda_virtual`, cree un archivo denominado `urls.py`. Así como para cada pantalla web usted creo una función en `views.py`, cada una de dichas funciones para ser invocada debe ser agregada a una lista de patrones de _URL_ (`urlpatterns`), es decir, por cada pantalla web debe haber un patrón de _URL_ relacionado el cual si el usuario coloca en el navegador web, le indica a **Django** cuál de las pantallas web debe ser renderizada.
 
-En el archivo `urls.py` que usted creo deberá importar dos cosas: (i) la función de **Django** para colocar las rutas de las _URLs_, y (2) las funciones que previamente usted ha definido en el archivo `views.py`. Para importar todas las funciones de otro archivo solo es necesario importar el mismo archivo, y en este caso, como tanto el archivo de `urls.py` y el archivo `views.py` están en la misma carpeta, se usa un `.` para indicarle esto a **Django**.
+En el archivo `urls.py` que usted creó, deberá importar dos cosas: (i) la función de **Django** para colocar las rutas de las _URLs_, y (ii) las funciones que previamente usted ha definido en el archivo `views.py`. Para importar todas las funciones de otro archivo solo es necesario importar el mismo archivo, y en este caso, como tanto el archivo de `urls.py` y el archivo `views.py` están en la misma carpeta, se usa un `.` para indicarle esto a **Django**.
 
-En cuanto a la lista de patrones de _URL_, se requiere crear una variable llamada `urlpatters`, la cual almacenará dicha lista. Cada _URL_ a agregar se hace con la función `path`, la cual recibe tres argumentos: la expresión regular que representa la _URL_, la vista que debe ser renderizada cuando se busque dicha _URL_, y un nombre identificador de la _URL_. Un ejemplo de esto se muestra a continuación: 
+En cuanto a la lista de patrones de _URL_, se requiere crear una variable llamada `urlpatterns`, la cual almacenará dicha lista. Cada _URL_ a agregar se hace con la función `path`, la cual recibe tres argumentos: la expresión regular que representa la _URL_, la vista que debe ser renderizada cuando se busque dicha _URL_, y un nombre identificador de la _URL_. Un ejemplo de esto se muestra a continuación: 
 ```
 path('regex', views.funcion_vista, name="nombre")
 ```
@@ -230,7 +242,7 @@ urlpatterns = [
 
 Sin embargo, ese archivo `urls.py` relaciona las _URLs_ en particular de la aplicación `tienda_virtual`, pero si usted tiene muchas más aplicaciones en el mismo proyecto de **Django** va a tener un archivo de estos por cada aplicación. Ahora, y entendiendo que puede ser un poco confuso, así como cada aplicación tiene un archivo `url.py`, el proyecto global de **Django** tiene su propio archivo `urls.py`, el cual se encuentra en la carpera de configuración del proyecto (en este caso, la carpeta llamada `misiontic_2020_ciclo1/misiontic_2020_ciclo1`). En este archivo debe importar todos los archivos de _URL_ de cada uno de los proyectos. Para ello, debe importar la función `include` que está en el módulo de `django.urls`.
 
-Luego, en la lista, ya existente, llamada `urlpatterns`, debe agregar un elemento en la cual relacione  `aplicacióo.urls` por cada aplicación que tenga. EN nuestro caso, este archivo debería quedar como el siguiente código:
+Luego, en la lista, ya existente, llamada `urlpatterns`, debe agregar un elemento en la cual relacione  `aplicacion.urls` por cada aplicación que tenga. En nuestro caso, este archivo debería quedar como el siguiente código:
 
 ```
 from django.contrib import admin
@@ -262,62 +274,65 @@ Este es un buen momento para verificar que todo ande funcionando bien. Se recomi
 python manage.py runserver
 ```
 
-Ahora, verá un sitio web sencillo, con el banner, y la opción de navegar a través del menú y las diferentes pantallas. Para acceder a la tiendar virtual, por favor vaya al siguiente link [http://localhost:8000/tienda_virtual](http://localhost:8000/tienda_virtual).
+Para acceder a la **Tienda Virtual**, por favor vaya al siguiente link [http://localhost:8000/tienda_virtual](http://localhost:8000/tienda_virtual). Ahora, verá un sitio web sencillo, con el banner, y la opción de navegar a través del menú y las diferentes pantallas. 
 
 
 ## Formularios a Desarrollar 
 Es momento de agregarle dinámica a nuestra **Tienda Virtual**, es decir, mover información entre el sitio web y la base de datos, además de algunos cálculos con los datos.
 
-Primero, se van a definir los formularios a usar en nuestra aplicación. **Django** tiene una forma bastante sencilla para construir dichos formularios y enlazarlos a las pantallas web, y para ello se recomienda crear un archivo denominado `forms.py` en la raíz de la aplicación (la misma en donde está el archivo `views.py`). 
+Primero, se van a definir los formularios a usar en nuestra aplicación. **Django** tiene una forma bastante sencilla para construir dichos formularios y enlazarlos a las pantallas web, y para ello se recomienda crear un archivo denominado `forms.py` en la raíz de la aplicación (la misma en donde está el archivo `views.py`). A continuación se muestra la estructura de archivos del proyecto **Tienda Virtual**: 
+
+![forms](forms.png)
 
 Para crear un formulario, se debe crear una clase (tranquilo, sabemos que clases no fue un tema de este ciclo, pero por ahora, va a ser un manejo sencillo de las mismas); similar a como se crea una función, se tiene una palabra reservada llamada `class` que permite crear una clase, luego debe ir el nombre, y finalmente un argumento el cual será un formulario de **Django**, así que debera importar un módulo para esto. Un ejemplo de código de lo mencionado se muestra a continuación:
 ```
 #archivo forms.py
-from django import forms
+from django.forms import Form, CharField_, ChoiceField_
 
-class formulario(forms.Form):
+class formulario(Form):
     #bloque
 ```
 
-Como puede observar, con la línea `from django import forms` se importa el módulo de formularios de **Django**, y este módulo es el que utiliza la clase como argumento para construir los formularios.
+Como puede observar, con la línea `from django.forms import Form` se importa el módulo de formularios de **Django**, y este módulo es el que utiliza la clase como argumento para construir los formularios.
 
 **Django** en su módulo `forms` proporciona una serie de componentes clásicos de los formularios (lo invitamos a revisar [] la documentación de correspondiente para mayor detalle). Para este ejercicio, vamos a utilizar dos componentes de los más utilizados, y que serán suficientes para nuestros propósitos:
-- _forms.CharField_: Se refiere a un campo de texto abierto, en donde el usuario puede escribir de manera libre. Esto quiere decir que este componente entrega información que es tipo de dato `string`.
-- _forms.ChoiceField_: Se refiere a un campo con opciones desplegables de las cuales solo se debe seleccionar una. Este campo suele ser alimentado con una lista de tuplas (parejas), y la tupla seleccionada será la información entregada por el componente.
+- CharField: Se refiere a un campo de texto abierto, en donde el usuario puede escribir de manera libre. Esto quiere decir que este componente entrega información que es tipo de dato `string`.
+- ChoiceField: Se refiere a un campo con opciones desplegables de las cuales solo se debe seleccionar una. Este campo suele ser alimentado con una lista de tuplas (parejas), y la tupla seleccionada será la información entregada por el componente.
 
 Para hacer una **Tienda Virtual** sencilla, se van a manejar dos formularios, uno para agregar productos al carrito, y otro para el proceso de pago. 
 
 En nuestro ejemplo, el primer formulario se llamará `agregar_producto`, y tendrá un campo desplegable para el _producto_ seleccionado (por ahora será una lista vacía), y otro campo desplegable para la _cantidad_ (lista que se puede construir utilizando un ciclo `for` y una función `range` en donde usted definirá la máxima cantidad de elementos que un usuario puede llevar); ambos campos son obligatorios. A continuación se muestra un código para ejemplificar esta definición:
 ```
-class agregar_producto(forms.Form):
+class agregar_producto(Form):
     productos = ()
     cantidad = ((i, i) for i in range(16))
     
-    producto = forms.ChoiceField(label = "Producto", required=True, choices=productos)
-    cantidad = forms.ChoiceField(label = "Cantidad", required=True, choices=cantidad)
+    producto = ChoiceField(label = "Producto", required=True, choices=productos)
+    cantidad = ChoiceField(label = "Cantidad", required=True, choices=cantidad)
 ```
 
 El segundo formulario se llamará `pagar_carrito`, el cual tendrá un campo desplegable para el método de pago (se crea una lista de con tuplas de manera manual), un campo de texto para colocar la dirección de entrega, y un campo de observaciones. El _método de pago_ y la _dirección_ son obligatorios; el campo de _observación_ es opcional. A continuación se muestra un ejemplo de como podría quedar construido este formulario:
 ```
-class pagar_carrito(forms.Form):
+class pagar_carrito(Form):
     metodos = (('Tarjeta de Crédito', 'Tarjeta de Crédito'), ('Pago en Efectivo', 'Pago en Efectivo'), ('Tarjeta Débito', 'Tarjeta Débito'))
 
-    metodo_pago = forms.ChoiceField(label = "Método de Pago", required=True, choices=metodos)
-    direccion = forms.CharField(label = "Dirección de Envío", required=True)
-    observaciones = forms.CharField(label = "Observaciones", required=False)
+    metodo_pago = ChoiceField(label = "Método de Pago", required=True, choices=metodos)
+    direccion = CharField(label = "Dirección de Envío", required=True)
+    observaciones = CharField(label = "Observaciones", required=False)
 ```
 
-Luego de construir los formularios, se pueden agregar dinámicas al sitio web usando _Python_ que usted ya conoce.
+Luego de construir los formularios, se pueden agregar dinámicas al sitio web usando _Python_, que usted ya conoce.
 
 
 ## Código Python dentro del HTML 
 Para transferir cualquier información adentro de los HTML, la forma más sencilla es generar un diccionario con los ítems que se quieran presentar en la web, y enviarlo como tercer parámetro en la función `render` que se está utilziando en el archivo `views.py`. Una definición sencilla de esto se muestra a continuación:
-```
-parametros = {'clave_1': 'valor_11',..,'clave_n': 'valor_n'}
-render(request, 'tienda_virtual/archivo.html', parametros)
-```
 
-En este sentido, es importante definir que se requiere tener en cada una de las pantallas web a trabajar. Para un ejercicio sencillo como el que se está trabajando, se definen estas necesidades como sigue:
+<pre>
+<b>parametros</b> = {'clave_1': 'valor_1',..,'clave_n': 'valor_n'}
+render(request, 'tienda_virtual/archivo.html', <b>parametros</b>)
+</pre>
+
+En este sentido, es importante definir qué se requiere tener en cada una de las pantallas web a trabajar. Para un ejercicio sencillo como el que se está trabajando, se definen estas necesidades como sigue:
 - `carrito_compras.html`: Se deben mostrar los productos que el usuario ha agregado al carrito. 
 - `historial.html`: Se debe mostrar el historial de compras realizadas en la **Tienda Virtual**.
 - `lista_productos.html`: Se debe mostrar la lista de productos y la opción de agregarlos al carrito de compras.

@@ -1,69 +1,49 @@
 from django.shortcuts import render
 from . import forms
 
-from pymongo import MongoClient
 
-# Conexión a la base de datos
-client = MongoClient('mongodb://localhost:27017/')
-db_tienda_virtual = client.tiendaVirtual
-
-
-# Crear tu vista aquí
 def home(request):
+    '''
+    Esta función indica la carga de la pantalla de Inicio de la Tienda Virtual
+    '''
     return render(request, 'tienda_virtual/index.html')
 
 
 def carrito(request):
-    productos = []
-    cursor = db_tienda_virtual['carrito'].find()
-    for document in cursor:
-        temp = {}
-        temp['nombre'] = document['nombre']
-        temp['costo'] = document['costo']
-        temp['cantidad'] = document['cantidad']
-        productos.append(temp)
-
-    parametros = {'productos':  productos}
-    return render(request, 'tienda_virtual/carrito_compras.html', parametros)
+    '''
+    Esta función indica la carga de la pantalla en la cual se visualiza el actual carrito de compras en la Tienda Virtual
+    '''
+    # MINTIC2020 ->  Acá debe colocar la variable que corresponde a la lista de productos en el carrito
+    # MINTIC2020 ->  Acá debe crear los parámetros a enviar al HTML
+    # MINTIC2020 ->  Acá debe hacer el return y render correspondiente para la función de la vista
 
 
 def historial(request):
-    historial = []
-    cursor = db_tienda_virtual['compras'].find()
-    for document in cursor:
-        temp = {}
-        temp['nombre'] = document['productos']
-        temp['costo'] = document['costo']
-        temp['fecha'] = document['fecha']
-        temp['metodo'] = document['metodo']
-        temp['direccion'] = document['direccion']
-        historial.append(temp)
-
-    parametros = {'historial':  historial}
-    return render(request, 'tienda_virtual/historial.html', parametros)
+    '''
+    Esta función indica la carga de la pantalla en la cual se podrá visualizar el historial de compras de la Tienda Virtual
+    '''
+    # MINTIC2020 ->  Acá debe colocar la variable que corresponde a la lista de compras registrada
+    # MINTIC2020 ->  Acá debe crear los parámetros a enviar al HTML
+    # MINTIC2020 ->  Acá debe hacer el return y render correspondiente para la función de la vista
 
 
 def productos(request):
-    productos = []
-    cursor = db_tienda_virtual['productos'].find()
-    for document in cursor:
-        temp = {}
-        temp['nombre'] = document['nombre']
-        temp['costo'] = document['costo']
-        productos.append(temp)
-   
-    frm_agregar = forms.agregar_producto()
-    parametros = {'frm_agregar':  frm_agregar, 'productos': productos}
-    return render(request, 'tienda_virtual/lista_productos.html', parametros)
+    '''
+    Esta función indica la carga de la pantalla que tiene el listado de productos que pueden ser agregados al carrito de la Tienda Virtual
+    '''
+    # MINTIC2020 ->  Acá debe colocar la variable que corresponde a la lista de productos en la base de datos
+    
+    # MINTIC2020 ->  Acá se debe invocar al formulario para agregar un producto al carrito
+    # MINTIC2020 ->  Acá debe crear los parámetros a enviar al HTML
+    # MINTIC2020 ->  Acá debe hacer el return y render correspondiente para la función de la vistareturn render(request, 'tienda_virtual/lista_productos.html', parametros) # MINTIC2020 ->  Acá se deben relacionar las URLs de la aplicación
 
 
 def pagos(request):
-    frm_pago = forms.pagar_carrito()
-    costo = 0
+    '''
+    Esta función indica la carga de la pantalla en la cual se realiza el Pago de los productos que estén en el carrito de la Tienda Virtual
+    '''
+    # MINTIC2020 ->  Acá se debe invocar al formulario para realizar el pago
+    # MINTIC2020 ->  Acá se debe colocar la variable que acumulara el costo total del pago a realizar
     
-    cursor = db_tienda_virtual['carrito'].find()
-    for document in cursor:
-        costo += int(document['costo']) * int(document['cantodad'])
-    
-    parametros = {'frm_pago':  frm_pago, 'costo': costo}
-    return render(request, 'tienda_virtual/pagar.html', parametros)
+    # MINTIC2020 ->  Acá debe crear los parámetros a enviar al HTML
+    # MINTIC2020 ->  Acá debe hacer el return y render correspondiente para la función de la vistareturn render(request, 'tienda_virtual/lista_productos.html', parametros) # MINTIC2020 ->  Acá se deben relacionar las URLs de la aplicación

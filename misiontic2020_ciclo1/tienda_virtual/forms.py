@@ -1,21 +1,18 @@
 from django import forms
-from pymongo import MongoClient
+
 
 class agregar_producto(forms.Form):
-    client = MongoClient('mongodb://localhost:27017/')
-    db_tienda_virtual = client.tiendaVirtual
+    # MINTIC2020 ->  Colocar acá la tupla de posibles productos a agregar
+    # MINTIC2020 ->  Colocar acá la tupla de cantidad de elementos a agregar
     
-    cursor = db_tienda_virtual['productos'].find()
-    productos = ((document['nombre'], document['costo']) for document in cursor)
-    cantidad = ((i, i) for i in range(16))
+    # MINTIC2020 ->  Agregar componente desplegable para los productos a mostrar
+    # MINTIC2020 ->  Agregar componente desplegable para la cantidad de productos a llevar
+
     
-    producto = forms.ChoiceField(label = "Producto", required=True, choices=productos)
-    cantidad = forms.ChoiceField(label = "Cantidad", required=True, choices=cantidad)
-
-
 class pagar_carrito(forms.Form):
-    metodos = (('Tarjeta de Crédito', 'Tarjeta de Crédito'), ('Pago en Efectivo', 'Pago en Efectivo'), ('Tarjeta Débito', 'Tarjeta Débito'))
+    # MINTIC2020 ->  Colocar acá la tupla de métodos de pago
 
-    metodo_pago = forms.ChoiceField(label = "Método de Pago", required=True, choices=metodos)
-    direccion = forms.CharField(label = "Dirección de Envío", required=True)
-    observaciones = forms.CharField(label = "Observaciones", required=False)
+    # MINTIC2020 ->  Agregar componente desplegable para los métodos de pago
+    # MINTIC2020 ->  Agregar componente de texto para colocar el nombre
+    # MINTIC2020 ->  Agregar componente de texto para colocar la dirección
+    # MINTIC2020 ->  Agregar componente de texto para colocar las observaciones

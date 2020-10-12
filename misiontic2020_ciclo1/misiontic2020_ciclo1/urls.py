@@ -18,5 +18,5 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('tienda_virtual/', include('tienda_virtual.urls')),  
+    # MINTIC2020 ->  Acá se deben relacionar las URLs de la aplicación
 ]

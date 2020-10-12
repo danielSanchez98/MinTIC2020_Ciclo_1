@@ -336,10 +336,10 @@ En este sentido, es importante definir qué se requiere tener en cada una de las
 - `carrito_compras.html`: Se deben mostrar los productos que el usuario ha agregado al carrito. 
 - `historial.html`: Se debe mostrar el historial de compras realizadas en la **Tienda Virtual**.
 - `lista_productos.html`: Se debe mostrar la lista de productos y la opción de agregarlos al carrito de compras.
-- `pagar.html`: Se debe mostrar el formulario de pago para que el usuario diligencie, además de motrar el valor total de la compra. 
+- `pagar.html`: Se debe mostrar el formulario de pago para que el usuario diligencie, además de mostrar el valor total de la compra. 
 
 
-Así, un ejemplo de cómo podría quedar el archivo `views.py` se muestra a continuación:
+Para este punto solo será necesario pasar un diccionario vacio a la vista HTML como se ve en el siguiente ejemplo.  En la siguiente unidad utilizaremos Mongo con su conector PyMongo para poder rellenar la base de datos. Así, un ejemplo de cómo podría quedar el archivo `views.py` se muestra a continuación:
 ```
 from django.shortcuts import render
 from . import forms
@@ -369,12 +369,12 @@ def pagos(request):
     return render(request, 'tienda_virtual/pagar.html', parameters)
 ```
 
-Para hacer una correcta interacción entre **Django** y el `HTML`, se deben en cuenta varios aspectos:
+Para hacer una correcta interacción entre **Django** y el `HTML`, se debe tener en cuenta varios aspectos:
 - Para utilizar elementos que se encuentren en la carpeta `static` de la aplicación, al inicio del archivo `HTML` se debe agregar la sentencia `{% load static %}`.
 - Para reemplazar el contenido del archivo `HTML` se deben usar las sentencias `{% block content %}` y  `{% endblock %}` al inicio y final del bloque respectivamente.
 - Cualquier otro código _Python_ que se vaya a colocar dentro del `HTML`, dependiendo del caso, será mediante los símbolos `{% code %}` (como es el caso de los ciclos y condicionales), o con los símbolos `{{ code }}` (como es el caso de las variables). 
 
-En este caso, para agregar una lista de elementos al `HTML` debe hacer una iteracion al parámetro enviado a través del `render`. En ejemplo de un `HTML` con ciclo `for` sería el siguiente:
+En este caso, para agregar una lista de elementos al `HTML` debe hacer una iteracion al parámetro enviado a través del `render`. Un ejemplo de un `HTML` con ciclo `for` sería el siguiente:
 ```
 {% block content %}
     {% for elemento in lista %}

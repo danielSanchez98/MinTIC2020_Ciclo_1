@@ -3,7 +3,7 @@ from . import forms
 
 from pymongo import MongoClient
 
-# Conección a la base de datos
+# Conexión a la base de datos
 client = MongoClient('mongodb://localhost:27017/')
 db_tienda_virtual = client.tiendaVirtual
 

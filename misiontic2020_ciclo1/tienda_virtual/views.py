@@ -8,7 +8,7 @@ client = MongoClient('mongodb://localhost:27017/')
 db_tienda_virtual = client.tiendaVirtual
 
 
-# Create your views here.
+# Crear tu vista aquí
 def home(request):
     return render(request, 'tienda_virtual/index.html')
 

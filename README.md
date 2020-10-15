@@ -11,28 +11,49 @@ Este ejercicio deberá correrse sobre un IDE (el presentado en el curso es VS Co
 
 Adicionalmente, deben instalarse unos módulos de la galería de Python que son de bastante uso en el desarrollo de aplicaciones web.
 
-En primera instancia, usted debe tener un entorno virtual construido, para evitar conflictos versiones de módulos y tecnologías que usted tenga en otros proyectos.
-Siendo así, vaya a la ventana de comandos (terminal, powershell, o similar), y ejecute la siguiente instrucción:.
-```
-python -m venv nombre_entorno
-```
-NOTA: En caso de que el anterior comando no se pueda ejecutar, ya que en ocasiones python no reconoce el ambiente virtual (en inglés virtual environment), deberá ejecutar el siguiente comando:
 
-Linux:
+
+En primera instancia, usted debe tener un entorno virtual construido, para evitar conflictos versiones de módulos y tecnologías que usted tenga en otros proyectos.
+Siendo así, vaya a la ventana de comandos (terminal, powershell, o similar), ubíquese en la carpeta en donde desee alojar el proyecto, y ejecute las siguientes instrucciones:.
+
+En ocasiones python no reconoce el ambiente virtual (en inglés virtual environment), se debe  ejecutar el siguiente comando y comprobar si ya se encuentra instalado:
+
+*Linux o MAC*:
 ```
 sudo apt-get install python3-venv
 ```
 
-Windows:
+*Windows*:
 ```
-pip install virtualenv
+python -m pip install virtualenv
+```
+
+Normalmente se ejecuta el comando como ```python -m venv nombre_entorno```. Para este caso se crear el nombre_entorno como env:
+
+```
+python -m venv env
+```
+
+En ocasiones puede que se haya instalado python3 y que python no lo reconozca, por lo que deberá ejecutar el siguiente comando:
+
+```
+python3 -m venv env
 ```
 
 Para este ejercicio, el nombre del entorno será `env` (es común que los desarrolladores usen `env` como nombre del entorno virtual). Para trabajar dentro del entorno virtual, primero debe activarse el mismo, lo cual puede hacer con la siguiente instrucción:
+
+*Linux o MAC:* 
 ```
 source env/bin/activate
 ```
-Si usted coloco un nombre distinto para el entorno virtual, deberá ajustar la instrucción anterior.
+
+*Windows:* 
+```
+env\Scripts\activate
+```
+
+
+Si usted colocó un nombre distinto para el entorno virtual, deberá ajustar la instrucción anterior.
 
 Recuerde que al ejecutar el comando anterior el entorno virtual quedará activo. Esta activación del entorno virtual se perderá cada vez que usted apague su computador. Por lo anterior, le pedimos el favor que cada vez que cierre la terminal y vuelva a tratar de ejecutar los comandos que aparecen a continuación, ejecute nuevamente la instrucción anterior.
 
@@ -41,21 +62,28 @@ En este punto puede verificar la versión de python usada dentro del entorno vir
 python --version
 ```
 
-Una vez tenga activo su entorno virtual, es momento  de crear un archivo en el cual usted coloque los módulos (y se recomienda también las versiones) que usted necesita para el desarrollo apropiado del proyecto. Estando en la raíz del proyecto, cree un archivo denominado `requeriments.txt`, y en él coloque el texto a continuación:
+Una vez tenga activo su entorno virtual, es momento  de crear un archivo en el cual usted coloque los módulos (y se recomienda también las versiones) que usted necesita para el desarrollo apropiado del proyecto. Estando en la raíz del proyecto, cree un archivo denominado `requirements.txt`, y en él coloque el texto a continuación:
 ```
 setuptools==50.3.0
 Django==3.1.2
 pymongo==3.11.0
 ```
 
-De allí, se tienen la siguiente explicación:
-- Django: Framework ampliamente reconocimiento para el desarrollo de python en web, especialmente por la facilidad que brinda al momento de manejar MVC (model-view-controller o modelo-vista-controlador).
+En este caso, el archivo `requirements.txt` le explica al interprete de python que instale las siguientes librerias:
+- Django: Framework ampliamente reconocimiento para el desarrollo de python en web, especialmente por la facilidad que brinda al momento de manejar MVC.
 - pymongo: módulo que permite la conexión y manipulación de información en el motor de base de datos de MongoDB.
 - setuptools: librería que ayuda a la gestión de otros módulos con python, mantener actualizaciones, entre otros.
 
 Ahora, luego de guardar el archivo con los módulos requeridos, puede colocar la siguiente instrucción para instalar todo lo enlistado en el archivo:
+
+*Linux o MAC*:
 ```
 pip install -r requirements.txt
+```
+
+*Windows*:
+```
+python -m pip install -r requirements.txt
 ```
 
 Si usted observa, tener un archivo como este es útil, primero porque puede instalar todos los módulos con una sola instrucción; segundo, porque cuando necesite recrear su entorno de desarrollo será mucho más rápido.
@@ -80,14 +108,14 @@ Para crear un proyecto en **Django**, teniendo el entorno virtual activo y en la
 django-admin startproject misiontic2020_ciclo1
 ```
 
-Esto creará una carpeta llamada `misiontic_2020_ciclo1` puesto que es el nombre que se le dio al proyecto en **Django**. Dentro de esta carpeta se han auto-generado los archivos necesario para la gestión del proyecto: una carpeta con el mismo nombre del proyecto, y el archivo principal `manage.py`.
+Esto creará una carpeta llamada `misiontic2020_ciclo1` puesto que es el nombre que se le dio al proyecto en **Django**. Dentro de esta carpeta se han auto-generado los archivos necesario para la gestión del proyecto: una carpeta con el mismo nombre del proyecto, y el archivo principal `manage.py`.
 Si usted quiere darle otro nombre a su proyecto, tendrá que cambiar la cadena de caracteres final de la instrucción utilizada. 
 
 Es momento de utilizar algún IDE y agregar la carpeta del ejercicio, para así poder modificar el código del mismo de una manera más sencilla (no vaya a cerrar la ventana de terminal, la va a utilizar de nuevo más adelante). 
 Estando en el explorador de archivos del IDE, usted deberá ver en la raíz del ejercicio la carpeta `mision2020_ciclo1`; por favor, expanda esa carpeta. Al expandir, verá el archivo `manage.py`, y una carpeta llamada de nuevo `mision2020_ciclo1`.
 Al expandir esta segunda carpeta, observara varios archivos de python:
 - _ _init_ _.py: Define el contenido de la carpeta como un módulo de python.
-- asgi.py: permite manejar el módulo como una variable de **Django**.
+- asgi.py: permite asociar el proyecto para ser lanzado en un canal asincrónico.
 - settings.py: Configuraciones generales del proyecto en **Django**.
 - urls.py: Listado de urls definidas para ser accedidas por el usuario en el MVC.
 - wsgi.py: permite asociar la aplicación para ser lanzada automáticamente con el servidor Apache.
@@ -96,7 +124,7 @@ Al expandir esta segunda carpeta, observara varios archivos de python:
 Por favor, dirígase al archivo de settings.py, en donde deberá realizar los siguientes cambios para ejecutar por primera vez la aplicación:
 1. Djando define desde que dirección de servidor puede ser ubicado. Como va a correr en la máquina local, le recomendamos que modifique la siguiente línea de código:
 ```
-ALLOWED_HOSTS = ['localhost', '127.0.0.1]  # linea 28
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']  # linea 28
 ```
 
 2. Es bueno configurar la zona del mundo, para un buen manejo de datos que tengan que ver con fecha, hora, e idioma para el usuario. Para ello, modifique las siguientes líneas de código:
@@ -119,7 +147,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 Ahora, es momento de probar que todo anda funcionando correctamente. Claro, no se ha agregado nada del desarrollo web, pero se puede validar que la creación y configuración del proyecto de **Django** es correcta. Para ello, debe regresar a la ventana de comandos ó terminal, y ubicarse en la carpeta raíz del proyecto. Allí, acceda a la carpera del proyecto de **Django** usando el siguiente comando:
 ```
-cd misiontic_2020_ciclo1
+cd misiontic2020_ciclo1
 ```
 
 estando allí, ejecute la siguiente instrucción que colocará el proyecto disponible para acceder desde cualquier navegador web:
@@ -129,13 +157,13 @@ python manage.py runserver
 
 Ahora, usando cualquier navegador coloque la dirección: [http://localhost:8000](http://localhost:8000), y allí vera una ventana con un cohete que le indicará que el proyecto en **Django** está bien construido hasta ahora.
 
-![django inicial](django-init.png)
+![django inicial](https://drive.google.com/uc?export=view&id=1vvchSxOhOCGFWu9sDoKOxrh4HkW-JN0z)
 
 Para continuar, por favor regrese a la ventana de comandos o terminal, y haga la siguiente secuencia de teclas: `Ctrl + C`. Esta secuencia de comandos se realiza para detener la ejecución de **Django**.
 
 Verifique que su estructura de archivos del proyecto dentro de **Visual Studio Code** se parezca a la siguiente imagen:
 
-![arbol-antes](arbol-antes-tienda-virtual.png)
+![arbol-antes](https://drive.google.com/uc?export=view&id=1nHkAjFSDwVGhSfmhlWMH5bAzjhidNVI_)
 
 Es momento de crear la aplicación web dentro del proyecto de **Django**. Es importante mencionar que en **Django** se pueden tener varias aplicaciones web, en el caso de que quiera trabajar un proyecto por componentes interconectados. Para nuestro ejercicio, solo se tendrá una aplicación web, la cual será la tienda virtual; para crearla, utilice la siguiente instrucción (debe mantenerse ubicado en la raíz del proyecto de **Django**, donde está el archivo de `manage.py`):
 ```
@@ -144,7 +172,7 @@ python manage.py startapp tienda_virtual
 
 Una vez ejecute el anterior comando, verifique nuevamente si su estructura de archivos se parece a la siguiente imagen:
 
-![arbol-despues](arbol-despues-tienda-virtual.png)
+![arbol-despues](https://drive.google.com/uc?export=view&id=12H1hUOinPBdJc62DzZ4W_-ByWCAOJsuJ)
 
 En nuestro proyecto, la app se llama `tienda_virtual`. Si usted quiere darle otro nombre, debe cambiar el final de la instrucción utilizada anteriormente. Una vez se haya ejecturado esta instrucción, se creará una carpeta con el mismo nombre de la app, y tendrá los archivos fundamentales para el manejo del MVC en **Django**.
 
@@ -155,10 +183,13 @@ Adicionalmente, debe ir al archivo de "settings.py" dentro de la aplicación mis
 
 El archivo se debe parecer a la siguiente imagen:
 
-![settings-tienda-virtual](settings-tienda-virtual.png)
+![settings-tienda-virtual](https://drive.google.com/uc?export=view&id=1Xc8-chbwSC126XR0G8-9h9LbWYyP5PMX)
 
 
 Listo, usted ha creado su primer proyecto de **Django** con una definición inicial de una aplicación web embebida en el mismo.
+
+
+
 
 
 ## Vistas Web de la Tienda Virtual 
@@ -173,7 +204,11 @@ En la siguiente imagen, podrá ver como se debe visualizar su estructura de arch
 
 ![static-templates](statics-templates.png)
 
-Para este ejemplo en particular, el contenido de ambas carpetas será proporcionado. Por un lado, en la carpeta `static` se tendrá una imagen a forma de banner y un archivo de estilos para que su sitio web se vea bien los cuales deberá copiar en su carpeta de `static` es decir en **misiontic2020_ciclo1/tienda_virtual/static/tienda_virtual/**. Por otro lado, en la carpera `templates` se tendrán los siguientes archivos HTML:
+Para este ejemplo en particular, el contenido de ambas carpetas será proporcionado. 
+
+Por un lado, en la carpeta `static/tienda_virtual/` se tendrá una imagen a forma de banner de *Mision TIC 2022* (*mision_tic_2022.png*) y un archivo de estilos (*style.css*) para que su sitio web se vea bien. Usted debe copiar ambos archivos en su carpeta `static`, es decir, en **misiontic2020_ciclo1/tienda_virtual/static/tienda_virtual/**. 
+
+En la carpeta `templates` se tendrán los siguientes archivos HTML:
 - _base.html_: Es un archivo que sirve para definir los elementos generales que van a tener todas las pantallas web, como banners, menú, pies de página, estilos, entre otros. Todos los otros archivos HTML invocaran este archivo, y así en cada uno solo se colocará el contenido que puntualmente le corresponde.
 - _index.html_: Página principal que se va a mostrar al usuario. Tiene la información general de la aplicación web.
 - _lista_productos.html_: Se muestran la lista de productos que pueden ser agregados al carrito de compras.
@@ -181,19 +216,19 @@ Para este ejemplo en particular, el contenido de ambas carpetas será proporcion
 - _pagar.html_: Se muestra un formulario que permite realizar el pago de los productos en el carrito de compras.
 - _historial.html_: Se muestra el historial de las compras realizadas en la Tienda Virtual.
 
-Esta carpeta **templates** junto con sus archivos también los deberá copiar en su carpeta correspondientes es decir en **misiontic2020_ciclo1/tienda_virtual/templates/tienda_virtual/** 
+Los anteriores archivos los deberá copiar en su carpeta `templates/tienda_virtual/`, es decir, en **misiontic2020_ciclo1/tienda_virtual/templates/tienda_virtual/** 
 
 Su estructura de archivos se debería ver como sigue:
 
 ![estructura-static](estructura-static.png)
 
-Para este punto se le solicita que descargue los archivos desde la url suministrada.
+Para este punto se le solicita que descargue los archivos desde la URL suministrada.
 
-Una vez se tengan los archivos `HTML` en la ubicación correcta, se debe hacer la relación de estas vistas en **Django**. Para ello, en la carpera de la aplicación, en este caso `tienda_virtual` en la raíz del proyecto de **Django**, existe un archivo llamado `views.py`. Este archivo solo tiene la importación de una función llamada `render`, la cual se utiliza para cargar el `HTML` de acuerdo a la vista que se quiera presentar.
+Una vez se tengan los archivos `HTML` en la ubicación indicada, se debe hacer la relación de estas vistas en **Django**. Para ello, en la carpeta raíz de la aplicación, que en este caso corresponde a `tienda_virtual`, existe un archivo llamado `views.py`. Este archivo solo tiene una línea de código, que corresponde a la importación de una función llamada `render` del módulo `django.shortcuts`, la cual se utiliza para cargar el `HTML` de acuerdo a la vista que se quiera presentar.
 
-Para relacionar las vistas del MVC se tiene un proceso sencillo: para cada pantalla, se debe crear una función, con un nombre a gusto del programador, pero como siempre, se recomienda que el nombre sea bastante claro y diciente; independiente del nombre de la función, esta debe recibir como argumento un `request`. 
+Para relacionar las vistas del MVC se tiene un proceso sencillo en **Django**. Para cada pantalla, se debe definir una función, con un nombre a gusto del programador. Se recomienda que el nombre sea bastante claro y diciente. Independiente del nombre de la función, esta debe recibir como argumento un `request`. 
 
-Dentro de esta función, usted puede colocar distintas dinámicas, como cargar o transformar datos, pero esto será explicado más adelante. Por ahora, cada función solo retornará la renderización de la pantalla web. A continuación se coloca un código de ejemplo que correspondería a relacionar todas las pantallas que se van a usar en la `tienda_virtual`:
+Dentro de cada función, usted puede colocar distintas dinámicas, como cargar o transformar datos, pero esto será explicado más adelante. Por ahora, cada función solo retornará la renderización de la pantalla web. A continuación, le presentamos un código de ejemplo que correspondería a las funciones relacionadas con todas las pantallas que se van a usar en la `tienda_virtual`:
 ```
 def home(request):
     return render(request, 'tienda_virtual/index.html')
@@ -211,12 +246,14 @@ def pagos(request):
     return render(request, 'tienda_virtual/pagar.html')
 ```
 
-Como puede observar, la función de `render` tiene dos parámetros: (i) el `request` que recibió la función de la vista, y (ii) la ruta al archivo `HTML`. Es importante mencionar que en este caso, **Django** interpreta a la carpeta `template` como la raíz de los fuentes de `HTML`, por eso no es necesario agregar eso a la ruta del archivo. 
+Como puede observar, cada función retorna a la función `render`, la cual tiene dos argumentos: (i) el `request` que recibió la función de la vista, y (ii) la ruta al archivo `HTML`. Es importante mencionar que en este caso, **Django** interpreta a la carpeta `template` como la raíz de los fuentes de `HTML`, por eso no es necesario agregar esa carpeta dentro del segundo parámetro de `render`. 
 
 Por ahora, esto es suficiente para relacionar las vistas de manera básica y que **Django** las pueda gestionar. 
 
 ## URLs de la Tienda Virtual 
-Si bien usted ya relacionó las vistas para que **Django** las reconozca, aún debe enlazar cada una de esas vistas a una `URL` para que puedan ser accedidas en el navegador web. Para ello, en la carpeta de la aplicación `tienda_virtual`, cree un archivo denominado `urls.py`. Así como para cada pantalla web usted creo una función en `views.py`, cada una de dichas funciones para ser invocada debe ser agregada a una lista de patrones de _URL_ (`urlpatterns`), es decir, por cada pantalla web debe haber un patrón de _URL_ relacionado el cual si el usuario coloca en el navegador web, le indica a **Django** cuál de las pantallas web debe ser renderizada.
+Si bien usted ya relacionó las vistas para que **Django** las reconozca, aún debe enlazar cada una de esas vistas a una `URL` para que puedan ser accedidas en el navegador web. Para ello, en la carpeta de la aplicación `tienda_virtual`, cree un archivo denominado `urls.py`. 
+
+Así como para cada pantalla web usted creó una función en `views.py`, cada una de dichas funciones para ser invocada debe ser agregada a una lista de patrones de _URL_ (`urlpatterns`). Es decir, por cada pantalla web debe haber un patrón de _URL_ relacionado, con el cual si el usuario coloca en el navegador web determinada URL, le indica a **Django** cuál de las pantallas web debe ser renderizada.
 
 En el archivo `urls.py` que usted creó, deberá importar dos cosas: (i) la función de **Django** para colocar las rutas de las _URLs_, y (ii) las funciones que previamente usted ha definido en el archivo `views.py`. Para importar todas las funciones de otro archivo solo es necesario importar el mismo archivo, y en este caso, como tanto el archivo de `urls.py` y el archivo `views.py` están en la misma carpeta, se usa un `.` para indicarle esto a **Django**.
 
@@ -240,9 +277,9 @@ urlpatterns = [
 ]
 ```
 
-Sin embargo, ese archivo `urls.py` relaciona las _URLs_ en particular de la aplicación `tienda_virtual`, pero si usted tiene muchas más aplicaciones en el mismo proyecto de **Django** va a tener un archivo de estos por cada aplicación. Ahora, y entendiendo que puede ser un poco confuso, así como cada aplicación tiene un archivo `url.py`, el proyecto global de **Django** tiene su propio archivo `urls.py`, el cual se encuentra en la carpera de configuración del proyecto (en este caso, la carpeta llamada `misiontic_2020_ciclo1/misiontic_2020_ciclo1`). En este archivo debe importar todos los archivos de _URL_ de cada uno de los proyectos. Para ello, debe importar la función `include` que está en el módulo de `django.urls`.
+El archivo `urls.py` que creó relaciona las _URLs_ en particular de la aplicación `tienda_virtual`. Pero en caso de que usted necesitara contar con más aplicaciones en el mismo proyecto de **Django**, debería tener un archivo de `urls.py` por cada aplicación. Ahora, y entendiendo que puede ser un poco confuso, así como cada aplicación tiene un archivo `urls.py`, el proyecto global de **Django** tiene su propio archivo `urls.py`, el cual se encuentra en la carpeta de configuración del proyecto (en este caso, la carpeta llamada `misiontic_2020_ciclo1/misiontic_2020_ciclo1`). En dicho archivo debe importar todos los archivos de _URL_ de cada uno de los proyectos. Para ello, debe importar la función `include` que está en el módulo de `django.urls`.
 
-Luego, en la lista, ya existente, llamada `urlpatterns`, debe agregar un elemento en la cual relacione  `aplicacion.urls` por cada aplicación que tenga. En nuestro caso, este archivo debería quedar como el siguiente código:
+En la lista `urlpatterns` del archivo `urls.py` del proyecto global `tienda_virtual`, debe agregar un elemento por cada aplicación, relacionando su archivo `urls`. En nuestro caso, el archivo global `urls.py` debería quedar como el siguiente código, ya que solo contamos con una aplicación, llamada `tienda_virtual`:
 
 ```
 from django.contrib import admin
@@ -254,7 +291,7 @@ urlpatterns = [
 ]
 ```
 
-Luego de tener definidas las _URLs_, se debe verificar que los enlaces en el menú el archivo `tienda_virtual/templates/tienda_virtual/base.html` sean los correctos, y así la navegación en el sitio web sea la esperada. Para nuestro ejemplo, así se vería el menú del archivo `HTML`, en donde en los atributos de `href` se observan las _URLs_ que se relacionaron para la aplicación:
+Luego de tener definidas las _URLs_, se debe verificar que en el archivo `tienda_virtual/templates/tienda_virtual/base.html`, se encuentren los enlaces correctos, y así la navegación en el sitio web sea la esperada. Para nuestro ejemplo, así se vería el menú del archivo `HTML`, en donde en los atributos de `href` se observan las _URLs_ que se relacionaron para la aplicación:
 ```
 <div align="center" width="100%">
     <table>
@@ -269,13 +306,14 @@ Luego de tener definidas las _URLs_, se debe verificar que los enlaces en el men
 ```
 
 
-Este es un buen momento para verificar que todo ande funcionando bien. Se recomienda volver a utilizar el comando para poner al proyecto de **Django** disponible para acceder a través de navegador web. Por si lo olvido, vaya a la carpera raíz del proyecto, y realice la instrucción:
+Este es un buen momento para verificar que todo ande funcionando bien. Para realizar la verificación, debe activar desde su consola el entorno virtual creado en la guía anterior, y volver a utilizar el comando para poner al proyecto de **Django** disponible para acceder a través de navegador web. Por si lo olvidó, vaya a la carpeta raíz del proyecto, y ejecute la instrucción:
 ```
 python manage.py runserver
 ```
 
 Para acceder a la **Tienda Virtual**, por favor vaya al siguiente link [http://localhost:8000/tienda_virtual](http://localhost:8000/tienda_virtual). Ahora, verá un sitio web sencillo, con el banner, y la opción de navegar a través del menú y las diferentes pantallas. 
 
+![menu-en-web](menu-en-web.png)
 
 ## Formularios a Desarrollar 
 Es momento de agregarle dinámica a nuestra **Tienda Virtual**, es decir, mover información entre el sitio web y la base de datos, además de algunos cálculos con los datos.
@@ -444,3 +482,24 @@ def pagos(request):
     parametros = {'frm_pago':  frm_pago, 'costo': costo}
     return render(request, 'tienda_virtual/pagar.html', parametros)
 ```
+
+
+
+
+
+# Errores Detectados
+### PIP no es reconocido como comando
+En este caso, solo requiere instalar de manera específica. Para ello, ejecute las siguientes instrucciones:
+```
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+python get-pip.py
+```
+Una vez esto se ejecute por completo, pruebe de nuevo el comando _pip_.
+
+
+### Windows no permite la ejecución de Scripts: 
+En este caso, vaya al buscador en Windows (lupa en la parte inferior izquierda), y escriba _Powershell_, allí verá una opción de `Abrir como Administrador`, de click en ella y coloque la siguiente instrucción:
+```
+Set-ExecutionPolicy RemoteSigned
+```
+Haga enter, y vuelva y pruebe la activación del entorno virtual, deberá funcionar de manera normal.

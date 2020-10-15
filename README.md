@@ -16,6 +16,8 @@ Adicionalmente, deben instalarse unos módulos de la galería de Python que son 
 En primera instancia, usted debe tener un entorno virtual construido, para evitar conflictos versiones de módulos y tecnologías que usted tenga en otros proyectos.
 Siendo así, vaya a la ventana de comandos (terminal, powershell, o similar), ubíquese en la carpeta en donde desee alojar el proyecto, y ejecute las siguientes instrucciones:.
 
+***
+
 En ocasiones python no reconoce el ambiente virtual (en inglés virtual environment), se debe  ejecutar el siguiente comando y comprobar si ya se encuentra instalado:
 
 *Linux o MAC*:
@@ -28,8 +30,11 @@ sudo apt-get install python3-venv
 python -m pip install virtualenv
 ```
 
-Normalmente se ejecuta el comando como ```python -m venv nombre_entorno```. Para este caso se crear el nombre_entorno como env:
+***
 
+## Creación de un ambiente virtual
+
+Para la creación de un ambiente virtual, normalmente se ejecuta el comando como ```python -m venv nombre_entorno```. Para este ejercicio, el nombre del entorno será `env` (es común que los desarrolladores usen `env` como nombre del entorno virtual):
 ```
 python -m venv env
 ```
@@ -39,15 +44,16 @@ En ocasiones puede que se haya instalado python3 y que python no lo reconozca, p
 ```
 python3 -m venv env
 ```
+## Activación del ambiente virtual
 
-Para este ejercicio, el nombre del entorno será `env` (es común que los desarrolladores usen `env` como nombre del entorno virtual). Para trabajar dentro del entorno virtual, primero debe activarse el mismo, lo cual puede hacer con la siguiente instrucción:
+Para trabajar dentro del entorno virtual, primero debe activarse el mismo, lo cual puede hacer con la siguiente instrucción:
 
-*Linux o MAC:* 
+*Linux o MAC:*
 ```
 source env/bin/activate
 ```
 
-*Windows:* 
+*Windows:*
 ```
 env\Scripts\activate
 ```
@@ -57,6 +63,7 @@ Si usted colocó un nombre distinto para el entorno virtual, deberá ajustar la 
 
 Recuerde que al ejecutar el comando anterior el entorno virtual quedará activo. Esta activación del entorno virtual se perderá cada vez que usted apague su computador. Por lo anterior, le pedimos el favor que cada vez que cierre la terminal y vuelva a tratar de ejecutar los comandos que aparecen a continuación, ejecute nuevamente la instrucción anterior.
 
+***
 En este punto puede verificar la versión de python usada dentro del entorno virtual usando la instrucción:
 ```
 python --version
